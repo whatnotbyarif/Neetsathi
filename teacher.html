@@ -9,34 +9,145 @@ body{margin:0}a{color:inherit;text-decoration:none}
 .cd{background:#fff;border-radius:24px;padding:24px;box-shadow:0 10px 30px rgba(55,48,163,.12)}
 .ch{display:inline-block;border-radius:20px;padding:4px 12px;font:700 12px 'Plus Jakarta Sans',sans-serif}</style></head>
 <body>
-<div class="w" style="display:flex;flex-wrap:wrap;min-height:880px"><aside style="flex:0 0 230px;background:#fff;padding:24px 16px;box-sizing:border-box;display:flex;flex-direction:column;gap:6px"><b style="font:800 20px 'Plus Jakarta Sans';padding:0 14px 16px;color:#4F46E5">NEET Saathi</b><a href="teacher.html" style="min-height:44px;display:flex;align-items:center;padding:0 14px;border-radius:12px;font:600 15px 'Plus Jakarta Sans';background:#EEF0FF;color:#4F46E5">AI Teacher</a><a href="test.html" style="min-height:44px;display:flex;align-items:center;padding:0 14px;border-radius:12px;font:600 15px 'Plus Jakarta Sans';color:#5F6384">Mock Test</a><a href="galti.html" style="min-height:44px;display:flex;align-items:center;padding:0 14px;border-radius:12px;font:600 15px 'Plus Jakarta Sans';color:#5F6384">Galti Notebook</a><a href="weak.html" style="min-height:44px;display:flex;align-items:center;padding:0 14px;border-radius:12px;font:600 15px 'Plus Jakarta Sans';color:#5F6384">Weak Topics</a><a href="plan.html" style="min-height:44px;display:flex;align-items:center;padding:0 14px;border-radius:12px;font:600 15px 'Plus Jakarta Sans';color:#5F6384">Daily Plan</a></aside>
-<main style="flex:1 1 520px;padding:28px;display:flex;flex-direction:column;gap:18px;box-sizing:border-box"><div class="cd" style="display:flex;flex-direction:column;gap:10px"><div style="display:flex;gap:8px;flex-wrap:wrap"><span class="ch" style="background:#EEF0FF;color:#4F46E5">Biology</span><span class="ch" style="background:#E4ECFB;color:#1F4FA3">[Book ka naam] · Q. [number]</span><span class="ch" style="background:#FFE9CC;color:#8A4A00">Medium</span></div><div id="qt" style="font:700 22px/1.3 'Plus Jakarta Sans'">Mitochondria ko cell ka powerhouse kyun kehte hain?</div><div id="qs" style="font-size:13px;color:#5F6384">Ye ek sample question hai. Neeche apna doubt likhkar Send dabayein.</div></div>
-<div class="cd" style="display:flex;flex-wrap:wrap;gap:20px"><div style="flex:1 1 300px;display:flex;flex-direction:column;gap:10px"><div style="display:flex;align-items:center;gap:10px"><b style="font-size:17px;flex:1">Dhruva Sir ka answer</b><span id="chip" class="ch" style="background:#EEF0FF;color:#4F46E5">Sample</span></div><p id="ans" style="margin:0;font-size:16px;line-height:1.6;white-space:pre-wrap">Cell ko ek ghar ki tarah imagine karein. Ghar chalane ke liye electricity chahiye. Cell ki electricity hai ATP, aur ise Mitochondria produce karta hai.</p><div id="rem" style="background:#FFF6DD;border-radius:14px;padding:12px 14px;font-size:15px"><b>Remember:</b> Mitochondria = ATP ki factory</div><svg id="flow" viewBox="0 0 330 56" width="100%" role="img" aria-label="Khana se ATP tak"><rect x="0" y="8" width="88" height="40" rx="12" fill="#EEF0FF"/><text x="44" y="33" text-anchor="middle" font-size="13" fill="#1B1B3A" font-family="Plus Jakarta Sans">Food</text><path d="M92 28h20" stroke="#4F46E5" stroke-width="2"/><path d="M112 22l8 6-8 6z" fill="#4F46E5"/><rect x="122" y="8" width="96" height="40" rx="12" fill="#4F46E5"/><text x="170" y="33" text-anchor="middle" font-size="13" fill="#fff" font-family="Plus Jakarta Sans">Mitochondria</text><path d="M222 28h12" stroke="#4F46E5" stroke-width="2"/><path d="M234 22l8 6-8 6z" fill="#4F46E5"/><rect x="244" y="8" width="86" height="40" rx="12" fill="#FFE2A8"/><text x="287" y="33" text-anchor="middle" font-size="13" fill="#1B1B3A" font-family="Plus Jakarta Sans">ATP (energy)</text></svg></div><div id="dia" style="flex:1 1 300px;background:#FFF7F2;border-radius:18px;padding:10px;display:flex;align-items:center"><svg viewBox="0 0 330 110" width="100%" role="img" aria-label="Mitochondria ka diagram"><rect width="330" height="110" rx="12" fill="#FFF7F2"/><ellipse cx="165" cy="55" rx="140" ry="34" fill="#FCE3D3" stroke="#C2562B" stroke-width="2"/><path d="M50 55C62 28 72 28 82 55S102 82 112 55S132 28 142 55S162 82 172 55S192 28 202 55S222 82 232 55S252 28 262 55S276 70 282 55" fill="none" stroke="#C2562B" stroke-width="2"/><text x="165" y="14" text-anchor="middle" font-size="11" fill="#1B1B3A" font-family="Plus Jakarta Sans">Outer membrane</text><text x="165" y="104" text-anchor="middle" font-size="11" fill="#1B1B3A" font-family="Plus Jakarta Sans">Cristae: yahin ATP banta hai</text></svg></div></div>
-<div style="display:flex;gap:12px;flex-wrap:wrap"><button id="nx" class="btn">Yes, next step</button><button id="ag" class="btn" style="background:#fff;color:#4F46E5;box-shadow:inset 0 0 0 2px #4F46E5">Explain again</button></div><div style="flex:1"></div>
-<div style="display:flex;gap:10px"><input id="q" aria-label="Doubt" placeholder="Apna doubt type karein ya photo upload karein..." style="flex:1;min-height:52px;border-radius:26px;border:0;padding:0 22px;font:16px 'Plus Jakarta Sans';box-shadow:0 8px 20px rgba(55,48,163,.14)"><button id="send" class="btn" style="border-radius:26px">Send</button></div></main>
+<div class="w" style="display:flex;flex-wrap:wrap;min-height:880px"><aside style="flex:0 0 230px;background:#fff;padding:24px 16px;box-sizing:border-box;display:flex;flex-direction:column;gap:6px"><a href="index.html" style="font:800 20px 'Plus Jakarta Sans';padding:0 14px 16px;color:#4F46E5">NEET Saathi</a><a href="teacher.html" style="min-height:44px;display:flex;align-items:center;padding:0 14px;border-radius:12px;font:600 15px 'Plus Jakarta Sans';background:#EEF0FF;color:#4F46E5">AI Teacher</a><a href="test.html" style="min-height:44px;display:flex;align-items:center;padding:0 14px;border-radius:12px;font:600 15px 'Plus Jakarta Sans';color:#5F6384">Mock Test</a><a href="galti.html" style="min-height:44px;display:flex;align-items:center;padding:0 14px;border-radius:12px;font:600 15px 'Plus Jakarta Sans';color:#5F6384">Galti Notebook</a><a href="weak.html" style="min-height:44px;display:flex;align-items:center;padding:0 14px;border-radius:12px;font:600 15px 'Plus Jakarta Sans';color:#5F6384">Weak Topics</a><a href="plan.html" style="min-height:44px;display:flex;align-items:center;padding:0 14px;border-radius:12px;font:600 15px 'Plus Jakarta Sans';color:#5F6384">Daily Plan</a></aside>
+<main style="flex:1 1 520px;padding:28px;display:flex;flex-direction:column;gap:18px;box-sizing:border-box"><div class="cd" style="display:flex;flex-direction:column;gap:10px"><div style="display:flex;gap:8px;flex-wrap:wrap"><span id="c1" class="ch" style="background:#EEF0FF;color:#4F46E5">Biology</span><span id="c2" class="ch" style="background:#E4ECFB;color:#1F4FA3">Cell Biology</span><span id="c3" class="ch" style="background:#FFE9CC;color:#8A4A00">Medium</span></div><div id="qt" style="font:700 22px/1.3 'Plus Jakarta Sans'"></div><div id="qs" style="font-size:13px;color:#5F6384"></div></div>
+<div id="out" style="display:flex;flex-direction:column;gap:18px"></div>
+<div style="display:flex;gap:12px;flex-wrap:wrap"><button id="nx" class="btn">Next Concept</button><button id="ag" class="btn" style="background:#fff;color:#4F46E5;box-shadow:inset 0 0 0 2px #4F46E5">Explain Differently</button></div><div style="flex:1"></div>
+<div style="display:flex;gap:10px"><input id="q" aria-label="Doubt" placeholder="Apna doubt yahan type karein..." style="flex:1;min-height:52px;border-radius:26px;border:0;padding:0 22px;font:16px 'Plus Jakarta Sans';box-shadow:0 8px 20px rgba(55,48,163,.14)"><button id="send" class="btn" style="border-radius:26px">Send</button></div></main>
 <aside style="flex:0 0 280px;padding:28px 20px;box-sizing:border-box"><div class="dk" style="border-radius:28px;padding:18px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px"><svg viewBox="0 0 240 280" width="170" role="img" aria-label="Dhruva Sir, AI teacher robot"><circle cx="120" cy="140" r="112" fill="rgba(139,92,246,.28)"/><path d="M120 44V22" stroke="#C7CBF5" stroke-width="4"/><circle cx="120" cy="16" r="8" fill="#FFC857"/><rect x="48" y="98" width="14" height="34" rx="7" fill="#8B5CF6"/><rect x="178" y="98" width="14" height="34" rx="7" fill="#8B5CF6"/><rect x="60" y="68" width="120" height="100" rx="30" fill="#EEF0FF" stroke="#C7CBF5" stroke-width="3"/><rect x="74" y="86" width="92" height="62" rx="20" fill="#12163F"/><circle cx="100" cy="112" r="9" fill="#22D3EE"/><circle cx="140" cy="112" r="9" fill="#22D3EE"/><path d="M104 130Q120 143 136 130" stroke="#22D3EE" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M68 56L120 32L172 56L120 74Z" fill="#1B1B3A"/><path d="M172 56L182 88" stroke="#FFC857" stroke-width="3"/><circle cx="182" cy="90" r="5" fill="#FFC857"/><rect x="56" y="186" width="24" height="54" rx="12" fill="#8B5CF6"/><rect x="160" y="186" width="24" height="54" rx="12" fill="#8B5CF6"/><rect x="78" y="176" width="84" height="76" rx="26" fill="#4F46E5"/><circle cx="120" cy="212" r="14" fill="#FFC857"/><path d="M113 212l5 5 9-10" stroke="#1B1B3A" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><b style="font-size:20px">Dhruva Sir</b><span style="font-size:13px;color:rgba(255,255,255,.8)">NEET Biology teacher · Online</span></div><div class="cd" style="margin-top:16px;padding:18px"><div style="font:700 12px 'Plus Jakarta Sans';color:#5F6384;letter-spacing:.06em">BOOK REFERENCE</div><div style="margin-top:8px;font-weight:700">[Book ka naam]</div><div style="color:#5F6384;font-size:14px">Chapter · Question number</div><button class="btn" style="margin-top:12px;min-height:44px;width:100%">View Book Page</button></div></aside></div><script>
 var API="https://dhruva-sir.mdarif829437.workers.dev";
 var last="";
+var SAMPLE_SVG='<svg viewBox="0 0 400 220"><rect x="0" y="0" width="400" height="220" fill="#F1F2FB"/><ellipse cx="200" cy="110" rx="170" ry="70" fill="#FCE3D3" stroke="#B4540A" stroke-width="3"/><path d="M70 110C85 60 100 60 115 110S145 160 160 110S190 60 205 110S235 160 250 110S280 60 295 110S320 140 335 110" fill="none" stroke="#B4540A" stroke-width="3"/><text x="200" y="30" text-anchor="middle" font-size="14" fill="#1B1B3A">Outer membrane</text><text x="200" y="205" text-anchor="middle" font-size="14" fill="#1B1B3A">Cristae: yahan ATP banta hai</text></svg>';
+var SAMPLE={subject:"Biology",topic:"Cell: The Unit of Life",difficulty:"Medium",title:"Mitochondria ko cell ka powerhouse kyun kehte hain?",short_answer:"Mitochondria cell ke liye ATP (energy) banata hai, isliye ise cell ka powerhouse kaha jata hai.",steps:[{heading:"Cell ko energy chahiye",text:"Cell ke har kaam, jaise growth aur transport, ke liye energy ki zarurat hoti hai."},{heading:"Energy ka form: ATP",text:"Cell ki energy currency ATP hai, jo turant use ho sakti hai."},{heading:"ATP ka production",text:"Mitochondria ki inner membrane (cristae) par cellular respiration se ATP banta hai."}],formula:"Glucose + O2 -> CO2 + H2O + ATP",example:"Jaise power plant poore sheher ko bijli deta hai, waise mitochondria poori cell ko energy deta hai.",remember:"Mitochondria = ATP ki factory",diagram_svg:SAMPLE_SVG,diagram_caption:"Mitochondria ka structure (sample)",check_question:"ATP banane ke liye cell ko kaunsi gas chahiye hoti hai?"};
+var TAGS={svg:1,g:1,rect:1,circle:1,ellipse:1,line:1,polyline:1,polygon:1,path:1,text:1,tspan:1,defs:1,lineargradient:1,stop:1};
+var ATTRS=" viewbox x y x1 y1 x2 y2 cx cy r rx ry width height d points fill stroke stroke-width stroke-dasharray stroke-linecap stroke-linejoin opacity fill-opacity stroke-opacity transform font-size font-family font-weight text-anchor dominant-baseline id offset stop-color gradientunits ";
 function el(i){return document.getElementById(i);}
+function E(tag,css,text){var n=document.createElement(tag);if(css){n.style.cssText=css;}if(text!==undefined&&text!==null){n.textContent=String(text);}return n;}
+function safeVal(v){v=String(v);if(/javascript|data:|[<>]/i.test(v)){return false;}if(/url\(/i.test(v)&&!/^url\(#[A-Za-z0-9_-]+\)$/.test(v.trim())){return false;}return true;}
+function build(node,depth){
+  if(depth>8){return null;}
+  var tag=node.localName.toLowerCase();
+  if(!TAGS[tag]){return null;}
+  var out=document.createElementNS("http://www.w3.org/2000/svg",node.localName);
+  for(var i=0;i<node.attributes.length;i++){
+    var a=node.attributes[i];
+    if(ATTRS.indexOf(" "+a.name.toLowerCase()+" ")>=0&&safeVal(a.value)){out.setAttribute(a.name,a.value);}
+  }
+  for(var j=0;j<node.childNodes.length;j++){
+    var c=node.childNodes[j];
+    if(c.nodeType===3&&(tag==="text"||tag==="tspan")){out.appendChild(document.createTextNode(c.nodeValue));}
+    else if(c.nodeType===1){var k=build(c,depth+1);if(k){out.appendChild(k);}}
+  }
+  return out;
+}
+function cleanSvg(str){
+  try{
+    str=String(str||"").trim();
+    if(str.indexOf("<svg")!==0){return null;}
+    if(str.indexOf("xmlns")<0){str=str.replace("<svg",'<svg xmlns="http://www.w3.org/2000/svg"');}
+    str=str.replace(/&(?!amp;|lt;|gt;|quot;|apos;|#)/g,"&amp;");
+    var doc=new DOMParser().parseFromString(str,"image/svg+xml");
+    if(doc.getElementsByTagName("parsererror").length){return null;}
+    var svg=build(doc.documentElement,0);
+    if(!svg){return null;}
+    if(!svg.getAttribute("viewBox")){svg.setAttribute("viewBox","0 0 400 220");}
+    svg.removeAttribute("height");
+    svg.setAttribute("width","100%");
+    svg.style.cssText="display:block;border-radius:16px;font-family:Plus Jakarta Sans,sans-serif";
+    return svg;
+  }catch(e){return null;}
+}
+function card(){var c=E("div");c.className="cd";c.style.cssText="display:flex;flex-direction:column;gap:12px";return c;}
+function label(t,color){return E("div","font:700 12px 'Plus Jakarta Sans';letter-spacing:.08em;color:"+(color||"#5F6384"),t);}
+function render(d){
+  var out=el("out");
+  out.innerHTML="";
+  el("c1").textContent=d.subject||"NEET";
+  el("c2").textContent=d.topic||"Doubt";
+  el("c3").textContent=d.difficulty||"Medium";
+  if(d.title){el("qt").textContent=d.title;}
+  if(d.short_answer){
+    var sa=E("div","border-radius:24px;padding:22px;color:#fff;background:linear-gradient(135deg,#4F46E5,#8B5CF6);box-shadow:0 10px 30px rgba(79,70,229,.35);display:flex;flex-direction:column;gap:8px");
+    sa.appendChild(label("SHORT ANSWER","rgba(255,255,255,.8)"));
+    sa.appendChild(E("div","font:700 19px/1.5 'Plus Jakarta Sans'",d.short_answer));
+    out.appendChild(sa);
+  }
+  var steps=Array.isArray(d.steps)?d.steps:[];
+  if(steps.length){
+    var sc=card();
+    sc.appendChild(E("b","font-size:17px","Step-by-step Explanation"));
+    for(var i=0;i<steps.length;i++){
+      var row=E("div","display:flex;gap:14px;align-items:flex-start");
+      row.appendChild(E("div","flex:0 0 34px;height:34px;border-radius:12px;background:linear-gradient(135deg,#4F46E5,#8B5CF6);color:#fff;display:flex;align-items:center;justify-content:center;font:800 15px 'Plus Jakarta Sans'",i+1));
+      var tx=E("div","display:flex;flex-direction:column;gap:2px");
+      tx.appendChild(E("b","font-size:16px",steps[i].heading||""));
+      tx.appendChild(E("div","font-size:15px;line-height:1.55;color:#3B3F66",steps[i].text||""));
+      row.appendChild(tx);
+      sc.appendChild(row);
+    }
+    out.appendChild(sc);
+  }
+  if(d.formula||d.example){
+    var two=E("div","display:flex;flex-wrap:wrap;gap:18px");
+    if(d.formula){
+      var fb=E("div","flex:1 1 240px;border-radius:20px;padding:18px;background:#EEF0FF;display:flex;flex-direction:column;gap:8px");
+      fb.appendChild(label("FORMULA","#4F46E5"));
+      fb.appendChild(E("div","font:800 20px/1.4 'Plus Jakarta Sans';color:#1B1B3A",d.formula));
+      two.appendChild(fb);
+    }
+    if(d.example){
+      var eb=E("div","flex:1 1 240px;border-radius:20px;padding:18px;background:#E3F6EC;display:flex;flex-direction:column;gap:8px");
+      eb.appendChild(label("REAL-LIFE EXAMPLE","#17603F"));
+      eb.appendChild(E("div","font-size:15px;line-height:1.55;color:#1B1B3A",d.example));
+      two.appendChild(eb);
+    }
+    out.appendChild(two);
+  }
+  var svg=d.diagram_svg?cleanSvg(d.diagram_svg):null;
+  if(svg){
+    var dc=card();
+    dc.appendChild(E("b","font-size:17px","Diagram"));
+    dc.appendChild(svg);
+    if(d.diagram_caption){dc.appendChild(E("div","font-size:13px;color:#5F6384;text-align:center",d.diagram_caption));}
+    out.appendChild(dc);
+  }
+  if(d.remember){
+    var rb=E("div","border-radius:20px;padding:18px;background:#FFF6DD;display:flex;flex-direction:column;gap:6px");
+    rb.appendChild(label("YAAD RAKHEIN","#8A4A00"));
+    rb.appendChild(E("div","font:700 17px/1.5 'Plus Jakarta Sans';color:#1B1B3A",d.remember));
+    out.appendChild(rb);
+  }
+  if(d.check_question){
+    var qb=card();
+    qb.style.background="#0B1030";
+    qb.style.color="#fff";
+    qb.appendChild(label("AAPKE LIYE SAWAL","#7DE8F8"));
+    qb.appendChild(E("div","font:600 17px/1.5 'Plus Jakarta Sans'",d.check_question));
+    out.appendChild(qb);
+  }
+}
+function showMsg(t){
+  var out=el("out");
+  out.innerHTML="";
+  var c=card();
+  c.appendChild(E("div","font-size:16px;line-height:1.6;color:#3B3F66",t));
+  out.appendChild(c);
+}
 function ask(text,shown){
   var send=el("send");
   send.disabled=true;
-  el("ans").textContent="Dhruva Sir soch rahe hain...";
-  el("chip").textContent="Soch rahe hain";
-  el("rem").style.display="none";
-  el("flow").style.display="none";
-  el("dia").style.display="none";
   if(shown){el("qt").textContent=shown;el("qs").textContent="Aapka doubt";}
+  showMsg("Dhruva Sir aapka answer taiyar kar rahe hain...");
   fetch(API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({question:text})})
   .then(function(r){return r.json();})
   .then(function(d){
-    el("ans").textContent=d.answer||d.error||"Jawab nahi mila. Dobara try karein.";
-    el("chip").textContent="Answer";
+    if(d.data){render(d.data);}
+    else if(d.answer){render({short_answer:d.answer});}
+    else{showMsg(d.error||"Jawab nahi mila. Dobara try karein.");}
     send.disabled=false;
   })
   .catch(function(){
-    el("ans").textContent="Internet ya server ki dikkat hai. Thodi der baad dobara try karein.";
-    el("chip").textContent="Error";
+    showMsg("Internet ya server me dikkat hai. Thodi der baad dobara try karein.");
     send.disabled=false;
   });
 }
@@ -50,10 +161,12 @@ el("send").onclick=function(){
 el("q").onkeydown=function(e){if(e.key==="Enter"){el("send").onclick();}};
 el("ag").onclick=function(){
   if(!last){return;}
-  ask("Pichhla doubt: "+last+" . Isse ek naye example se, aur simple tareeke se dobara samjhayein.");
+  ask("Pichhla doubt: "+last+" . Isse ek alag example aur alag tareeke se dobara samjhayein.");
 };
 el("nx").onclick=function(){
   if(!last){return;}
-  ask("Pichhla doubt: "+last+" . Ab isse jude agle concept ka agla step samjhayein.");
+  ask("Pichhla doubt: "+last+" . Ab isse jude agle concept ko samjhayein.");
 };
+el("qs").textContent="Ye ek sample hai. Neeche apna doubt likhkar Send dabayein.";
+render(SAMPLE);
 </script></body></html>
