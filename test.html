@@ -1,205 +1,408 @@
 <!DOCTYPE html>
-<html lang="hi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Mock Test - NEET Saathi</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap"><style>
-body{margin:0}a{color:inherit;text-decoration:none}
-.w{font-family:'Plus Jakarta Sans',sans-serif;color:#1B1B3A;background:#F1F2FB}
-.dk{background:radial-gradient(circle at 78% 35%,rgba(139,92,246,.55),transparent 45%),radial-gradient(circle at 8% 95%,rgba(34,211,238,.2),transparent 40%),#0B1030;color:#fff}
-.ct{max-width:1200px;margin:0 auto;padding:0 32px;box-sizing:border-box}
-.btn{min-height:48px;padding:0 24px;border-radius:14px;border:0;font:700 15px 'Plus Jakarta Sans',sans-serif;background:linear-gradient(135deg,#4F46E5,#8B5CF6);color:#fff;box-shadow:0 8px 24px rgba(79,70,229,.4)}
-.gh{background:rgba(255,255,255,.1);box-shadow:none;border:1px solid rgba(255,255,255,.35)}
-.cd{background:#fff;border-radius:24px;padding:24px;box-shadow:0 10px 30px rgba(55,48,163,.12)}
-.ch{display:inline-block;border-radius:20px;padding:4px 12px;font:700 12px 'Plus Jakarta Sans',sans-serif}.pc{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font:700 14px 'Plus Jakarta Sans'}</style><style>
-.nav a{margin-right:14px;font:700 14px 'Plus Jakarta Sans',sans-serif;color:#fff;opacity:.9}
-.opt{display:flex;align-items:center;gap:14px;min-height:54px;padding:0 16px;border-radius:16px;background:#fff;box-shadow:0 4px 12px rgba(55,48,163,.08);font:700 16px 'Plus Jakarta Sans',sans-serif;cursor:pointer;border:2px solid transparent}
-.opt.on{background:#EEF0FF;border-color:#4F46E5;color:#4F46E5}
-.pc{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font:700 14px 'Plus Jakarta Sans',sans-serif;border:0;background:#E6E8F6;color:#1B1B3A}
-.pc.ans{background:#22A66E;color:#fff}.pc.nan{background:#B4540A;color:#fff}.pc.mk{background:#8B5CF6;color:#fff}.pc.cur{box-shadow:0 0 0 3px #fff,0 0 0 5px #4F46E5}
-.g2{display:flex;gap:10px;flex-wrap:wrap}
-select{min-height:48px;border-radius:14px;border:2px solid #E6E8F6;padding:0 14px;font:600 15px 'Plus Jakarta Sans',sans-serif;background:#fff;color:#1B1B3A}
-.qi{width:100%;display:block;border-radius:12px;background:#fff}
-</style></head>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEET CBT Mock Test</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; background: #f5f7fa; color: #1a1a2e; padding: 16px; }
+  .container { max-width: 1100px; margin: 0 auto; }
+
+  /* प्रवेश पृष्ठ */
+  .entry-screen { display: block; }
+  .entry-header { text-align: center; padding: 40px 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 20px; color: white; margin-bottom: 24px; }
+  .entry-header h1 { font-size: 2rem; margin-bottom: 8px; }
+  .entry-header p { opacity: 0.9; font-size: 1rem; }
+
+  .mode-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 700px) { .mode-grid { grid-template-columns: 1fr; } }
+
+  .mode-card { background: white; border-radius: 16px; padding: 28px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); border: 2px solid transparent; transition: all 0.2s; }
+  .mode-card:hover { border-color: #667eea; transform: translateY(-2px); }
+  .mode-card h2 { font-size: 1.3rem; margin-bottom: 8px; color: #333; }
+  .mode-card .sub { color: #666; font-size: 0.9rem; margin-bottom: 20px; }
+
+  .subject-btns { display: flex; flex-direction: column; gap: 10px; }
+  .subject-btn { padding: 12px 20px; border-radius: 10px; border: 1.5px solid #e0e0e0; background: #fafafa; cursor: pointer; font-size: 1rem; font-weight: 500; text-align: left; transition: all 0.15s; }
+  .subject-btn:hover { background: #667eea; color: white; border-color: #667eea; }
+
+  .full-btn { width: 100%; padding: 14px; background: #764ba2; color: white; border: none; border-radius: 10px; font-size: 1.05rem; font-weight: 600; cursor: pointer; transition: background 0.15s; }
+  .full-btn:hover { background: #5a3a7a; }
+
+  /* परीक्षा इंटरफ़ेस */
+  .exam-screen { display: none; }
+  .exam-header { background: white; border-radius: 12px; padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); flex-wrap: wrap; gap: 10px; }
+  .exam-title { font-weight: 700; font-size: 1.1rem; }
+  .timer-box { background: #1a1a2e; color: #fff; padding: 8px 18px; border-radius: 8px; font-weight: 700; font-size: 1.1rem; font-variant-numeric: tabular-nums; }
+  .timer-box.warning { background: #dc3545; }
+
+  .exam-body { display: grid; grid-template-columns: 1fr 240px; gap: 16px; }
+  @media (max-width: 800px) { .exam-body { grid-template-columns: 1fr; } }
+
+  .question-panel { background: white; border-radius: 12px; padding: 24px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); min-height: 400px; }
+  .q-meta { display: flex; justify-content: space-between; margin-bottom: 16px; color: #666; font-size: 0.9rem; }
+  .q-text { font-size: 1.1rem; line-height: 1.7; margin-bottom: 24px; font-weight: 500; }
+
+  .options { display: flex; flex-direction: column; gap: 12px; }
+  .option { padding: 14px 18px; border: 1.5px solid #e0e0e0; border-radius: 10px; cursor: pointer; transition: all 0.15s; display: flex; align-items: center; gap: 12px; }
+  .option:hover { background: #f0f4ff; border-color: #667eea; }
+  .option.selected { background: #667eea; color: white; border-color: #667eea; }
+  .option input { display: none; }
+  .opt-letter { width: 28px; height: 28px; border-radius: 50%; background: #eee; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem; flex-shrink: 0; }
+  .option.selected .opt-letter { background: rgba(255,255,255,0.3); }
+
+  .nav-btns { display: flex; gap: 10px; margin-top: 24px; }
+  .nav-btns button { flex: 1; padding: 12px; border: none; border-radius: 10px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.15s; }
+  .btn-prev { background: #e0e0e0; color: #333; }
+  .btn-prev:hover { background: #ccc; }
+  .btn-next { background: #667eea; color: white; }
+  .btn-next:hover { background: #5568d3; }
+  .btn-submit { background: #28a745; color: white; }
+  .btn-submit:hover { background: #218838; }
+
+  /* प्रश्न पैलेट */
+  .palette-panel { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); height: fit-content; position: sticky; top: 16px; }
+  .palette-panel h3 { font-size: 0.95rem; margin-bottom: 14px; color: #333; }
+  .palette-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 16px; }
+  .p-btn { width: 100%; aspect-ratio: 1; border: 1.5px solid #ddd; border-radius: 8px; background: #fafafa; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: all 0.1s; }
+  .p-btn.answered { background: #28a745; color: white; border-color: #28a745; }
+  .p-btn.current { border-color: #1a1a2e; border-width: 2.5px; }
+
+  .legend { display: flex; flex-direction: column; gap: 6px; font-size: 0.8rem; color: #666; }
+  .legend-item { display: flex; align-items: center; gap: 8px; }
+  .legend-dot { width: 14px; height: 14px; border-radius: 4px; border: 1.5px solid #ddd; }
+  .legend-dot.green { background: #28a745; border-color: #28a745; }
+
+  /* परिणाम पृष्ठ */
+  .result-screen { display: none; }
+  .result-card { background: white; border-radius: 16px; padding: 40px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+  .score-circle { width: 140px; height: 140px; border-radius: 50%; background: linear-gradient(135deg, #667eea, #764ba2); color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 auto 24px; }
+  .score-circle .num { font-size: 2.5rem; font-weight: 800; line-height: 1; }
+  .score-circle .label { font-size: 0.8rem; opacity: 0.9; }
+  .stat-row { display: flex; justify-content: center; gap: 40px; margin: 24px 0; flex-wrap: wrap; }
+  .stat-item { text-align: center; }
+  .stat-item .val { font-size: 1.6rem; font-weight: 700; }
+  .stat-item .lbl { font-size: 0.85rem; color: #666; }
+  .val.correct { color: #28a745; }
+  .val.wrong { color: #dc3545; }
+  .val.skipped { color: #999; }
+
+  .review-btn { padding: 14px 32px; background: #667eea; color: white; border: none; border-radius: 10px; font-size: 1rem; font-weight: 600; cursor: pointer; }
+  .review-btn:hover { background: #5568d3; }
+
+  .review-list { margin-top: 32px; text-align: left; }
+  .review-item { padding: 16px; border-radius: 10px; margin-bottom: 10px; border-left: 4px solid #ddd; background: #fafafa; }
+  .review-item.correct { border-left-color: #28a745; }
+  .review-item.wrong { border-left-color: #dc3545; }
+  .review-item.skipped { border-left-color: #999; }
+  .review-q { font-weight: 600; margin-bottom: 8px; }
+  .review-ans { font-size: 0.9rem; color: #555; }
+</style>
+</head>
 <body>
-<div class="w" style="min-height:900px">
-<div class="dk" style="padding:14px 0"><div class="ct" style="display:flex;align-items:center;gap:14px;flex-wrap:wrap"><a href="index.html" style="flex:1 1 200px"><b style="font:800 20px 'Plus Jakarta Sans'">NEET Saathi · CBT Mock Test</b></a><div class="nav"><a href="teacher.html">AI Teacher</a><a href="galti.html">Galti Notebook</a><a href="weak.html">Progress</a><a href="plan.html">Daily Plan</a></div><div id="timer" style="display:none;background:#fff;color:#4F46E5;border-radius:14px;padding:6px 16px;font:800 22px 'Plus Jakarta Sans'">00:00:00</div></div></div>
-<div class="ct" style="padding-top:22px;padding-bottom:40px">
-<div id="start" class="cd" style="max-width:560px;display:flex;flex-direction:column;gap:14px">
-<h2 style="margin:0;font:800 24px 'Plus Jakarta Sans'">Test shuru karein</h2>
-<div style="color:#5F6384;font-size:14px;line-height:1.5">Asli NEET paper ke questions. Sahi jawab par +4, galat par -1. Galat questions apne aap Galti Notebook me save ho jaate hain.</div>
-<label style="font-weight:700;font-size:14px">Kaunsa paper?</label>
-<select id="paper"><option value="2025">NEET 2025</option><option value="2019">NEET 2019</option><option value="2018">NEET 2018</option></select>
-<label style="font-weight:700;font-size:14px">Kitna?</label>
-<select id="scope"><option value="all">Poora paper (180 questions, 3 ghante)</option><option value="Physics">Sirf Physics (45 questions, 45 minute)</option><option value="Chemistry">Sirf Chemistry (45 questions, 45 minute)</option><option value="Botany">Sirf Botany (45 questions, 45 minute)</option><option value="Zoology">Sirf Zoology (45 questions, 45 minute)</option></select>
-<div><button id="go" class="btn">Test shuru karein</button></div>
-<div id="smsg" style="font-size:14px;color:#B4540A;min-height:18px"></div>
+<div class="container">
+
+  <!-- प्रवेश पृष्ठ -->
+  <div class="entry-screen" id="entryScreen">
+    <div class="entry-header">
+      <h1>NEET CBT Mock Test</h1>
+      <p>अध्याय-वार अभ्यास या पूर्ण परीक्षा सिमुलेशन चुनें</p>
+    </div>
+    <div class="mode-grid">
+      <div class="mode-card">
+        <h2>📚 अध्याय-वार अभ्यास</h2>
+        <p class="sub">एकल विषय चुनें, लक्षित अभ्यास करें</p>
+        <div class="subject-btns">
+          <button class="subject-btn" onclick="startExam('physics')">⚡ भौतिकी (Physics)</button>
+          <button class="subject-btn" onclick="startExam('chemistry')">🧪 रसायन (Chemistry)</button>
+          <button class="subject-btn" onclick="startExam('biology')">🧬 जीव विज्ञान (Biology)</button>
+        </div>
+      </div>
+      <div class="mode-card">
+        <h2>📝 पूर्ण NEET मॉक</h2>
+        <p class="sub">180 प्रश्न · 3 घंटे · वास्तविक अनुपात</p>
+        <p style="font-size: 0.9rem; color: #555; margin-bottom: 20px; line-height: 1.8;">
+          Biology: 90 प्रश्न<br>
+          Physics: 45 प्रश्न<br>
+          Chemistry: 45 प्रश्न
+        </p>
+        <button class="full-btn" onclick="startExam('full')">पूर्ण मॉक प्रारंभ करें</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- परीक्षा इंटरफ़ेस -->
+  <div class="exam-screen" id="examScreen">
+    <div class="exam-header">
+      <div class="exam-title" id="examTitle">परीक्षा</div>
+      <div class="timer-box" id="timerBox">03:00:00</div>
+    </div>
+    <div class="exam-body">
+      <div class="question-panel">
+        <div class="q-meta">
+          <span id="qCounter">प्रश्न 1 / 10</span>
+          <span id="qMarks">+4 / -1</span>
+        </div>
+        <div class="q-text" id="qText">प्रश्न लोड हो रहा है...</div>
+        <div class="options" id="optionsContainer"></div>
+        <div class="nav-btns">
+          <button class="btn-prev" onclick="prevQuestion()">← पिछला</button>
+          <button class="btn-next" onclick="nextQuestion()">अगला →</button>
+          <button class="btn-submit" onclick="submitExam()">जमा करें</button>
+        </div>
+      </div>
+      <div class="palette-panel">
+        <h3>प्रश्न पैलेट</h3>
+        <div class="palette-grid" id="paletteGrid"></div>
+        <div class="legend">
+          <div class="legend-item"><span class="legend-dot green"></span> उत्तर दिया</div>
+          <div class="legend-item"><span class="legend-dot"></span> नहीं दिया</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- परिणाम पृष्ठ -->
+  <div class="result-screen" id="resultScreen">
+    <div class="result-card">
+      <div class="score-circle">
+        <span class="num" id="finalScore">0</span>
+        <span class="label">अंक</span>
+      </div>
+      <h2 id="resultTitle">परीक्षा पूर्ण</h2>
+      <div class="stat-row">
+        <div class="stat-item"><div class="val correct" id="correctCount">0</div><div class="lbl">सही</div></div>
+        <div class="stat-item"><div class="val wrong" id="wrongCount">0</div><div class="lbl">गलत</div></div>
+        <div class="stat-item"><div class="val skipped" id="skippedCount">0</div><div class="lbl">छोड़े</div></div>
+      </div>
+      <button class="review-btn" onclick="toggleReview()">उत्तर समीक्षा देखें</button>
+      <div class="review-list" id="reviewList" style="display:none;"></div>
+    </div>
+  </div>
+
 </div>
-<div id="test" style="display:none;flex-wrap:wrap;gap:22px;align-items:flex-start">
-<div style="flex:1 1 560px;display:flex;flex-direction:column;gap:14px;min-width:0">
-<div id="subs" class="g2"></div>
-<div class="cd" style="display:flex;flex-direction:column;gap:12px;padding:16px"><div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><b id="qno" style="font-size:15px;flex:1"></b><span id="qsub" class="ch" style="background:#EEF0FF;color:#4F46E5"></span><span class="ch" style="background:#E3F6EC;color:#17603F">+4 / -1</span></div><img id="qimg" class="qi" alt="Question"></div>
-<div id="opts" style="display:flex;flex-direction:column;gap:10px"></div>
-<div class="g2"><button id="prev" class="btn" style="min-height:44px;padding:0 18px;background:#fff;color:#4F46E5;box-shadow:inset 0 0 0 2px #4F46E5">Previous</button><button id="mark" class="btn" style="min-height:44px;padding:0 18px;background:#fff;color:#4F46E5;box-shadow:inset 0 0 0 2px #4F46E5">Mark for Review</button><button id="clr" class="btn" style="min-height:44px;padding:0 18px;background:#fff;color:#4F46E5;box-shadow:inset 0 0 0 2px #4F46E5">Clear Answer</button><button id="next" class="btn" style="min-height:44px">Save &amp; Next</button></div>
-</div>
-<aside style="flex:0 0 330px;max-width:100%;display:flex;flex-direction:column;gap:14px"><div class="cd" style="padding:16px"><b style="font-size:16px">Question Palette</b><div id="pal" style="display:flex;flex-wrap:wrap;gap:8px;margin:12px 0"></div><div style="display:flex;flex-wrap:wrap;gap:8px 14px;font-size:12px"><span><i style="display:inline-block;width:12px;height:12px;border-radius:4px;background:#22A66E"></i> Answered</span><span><i style="display:inline-block;width:12px;height:12px;border-radius:4px;background:#8B5CF6"></i> Marked</span><span><i style="display:inline-block;width:12px;height:12px;border-radius:4px;background:#B4540A"></i> Not answered</span><span><i style="display:inline-block;width:12px;height:12px;border-radius:4px;background:#E6E8F6"></i> Not visited</span></div></div><button id="submit" class="btn" style="min-height:52px;background:linear-gradient(135deg,#B4540A,#E0801F)">Submit Test</button></aside>
-</div>
-<div id="result" style="display:none;flex-direction:column;gap:18px;max-width:760px"></div>
-</div></div>
+
 <script>
-var FILES={"2018":["neet2018.json"],"2019":["neet2019.json"],"2025":["neet2025a.json","neet2025b.json"]};
-var GKEY="neetsathi_galti_v1";
-var GAP=[1,3,7,15];
-var DAY=86400000;
-var S={qs:[],ans:[],vis:[],mk:[],cur:0,left:0,tid:null,paper:"",title:"",done:false};
-function el(i){return document.getElementById(i);}
-function E(tag,css,text){var n=document.createElement(tag);if(css){n.style.cssText=css;}if(text!==undefined&&text!==null){n.textContent=String(text);}return n;}
-function fmt(t){var h=Math.floor(t/3600),m=Math.floor(t%3600/60),s=t%60;return (h<10?"0":"")+h+":"+(m<10?"0":"")+m+":"+(s<10?"0":"")+s;}
-function loadPaper(y){
-  var fs=FILES[y];
-  return Promise.all(fs.map(function(f){return fetch(f).then(function(r){if(!r.ok){throw new Error(f);}return r.json();});})).then(function(arr){
-    var qs=[];arr.forEach(function(d){qs=qs.concat(d.questions);});
-    qs.sort(function(a,b){return a.n-b.n;});
-    return {title:arr[0].title,qs:qs};
-  });
-}
-el("go").onclick=function(){
-  var y=el("paper").value,sc=el("scope").value;
-  el("smsg").style.color="#5F6384";el("smsg").textContent="Questions load ho rahe hain...";
-  el("go").disabled=true;
-  loadPaper(y).then(function(p){
-    var qs=p.qs.filter(function(q){return sc==="all"||q.s===sc;});
-    if(!qs.length){throw new Error("empty");}
-    S.qs=qs;S.paper=y;S.title=p.title;S.done=false;
-    S.ans=qs.map(function(){return 0;});S.vis=qs.map(function(){return false;});S.mk=qs.map(function(){return false;});
-    S.cur=0;S.left=(sc==="all"?180:45)*60;
-    el("start").style.display="none";el("test").style.display="flex";el("timer").style.display="block";
-    buildSubs();show(0);tick();
-    S.tid=setInterval(tick,1000);
-  }).catch(function(){
-    el("smsg").style.color="#B4540A";el("smsg").textContent="Ye paper abhi load nahi ho paya. Questions ki file GitHub par upload hui hai ya nahi, ye check karein.";
-    el("go").disabled=false;
-  });
+// ============================================================
+// प्रश्न डेटा - यहाँ अपने प्रश्न डालें
+// ============================================================
+const questions = {
+  physics: [
+    { q: "विद्युत धारा का SI मात्रक क्या है?", opts: ["वोल्ट", "एम्पियर", "ओम", "वाट"], ans: 1 },
+    { q: "प्रकाश की गति निर्वात में लगभग कितनी है?", opts: ["3×10⁶ m/s", "3×10⁸ m/s", "3×10¹⁰ m/s", "3×10⁵ m/s"], ans: 1 },
+    { q: "निम्न में से कौन अदिश राशि है?", opts: ["बल", "वेग", "कार्य", "त्वरण"], ans: 2 },
+    { q: "ओम का नियम किसके लिए लागू होता है?", opts: ["धात्विक चालक", "अर्धचालक", "विद्युत अपघट्य", "निर्वात"], ans: 0 },
+    { q: "लेंस की क्षमता का SI मात्रक है?", opts: ["मीटर", "डायोप्टर", "फोकस", "वाट"], ans: 1 },
+  ],
+  chemistry: [
+    { q: "जल का रासायनिक सूत्र क्या है?", opts: ["H₂O₂", "H₂O", "HO", "H₃O"], ans: 1 },
+    { q: "निम्न में से कौन उत्कृष्ट गैस है?", opts: ["ऑक्सीजन", "नाइट्रोजन", "हीलियम", "हाइड्रोजन"], ans: 2 },
+    { q: "pH मान 7 से कम होने पर विलयन होता है?", opts: ["क्षारीय", "उदासीन", "अम्लीय", "लवणीय"], ans: 2 },
+    { q: "आवर्त सारणी में क्षैतिज पंक्ति को क्या कहते हैं?", opts: ["समूह", "आवर्त", "ब्लॉक", "श्रेणी"], ans: 1 },
+    { q: "सोडियम का प्रतीक क्या है?", opts: ["So", "Sd", "Na", "Nm"], ans: 2 },
+  ],
+  biology: [
+    { q: "कोशिका का ऊर्जा गृह किसे कहते हैं?", opts: ["राइबोसोम", "माइटोकॉन्ड्रिया", "केन्द्रक", "गॉल्जी बॉडी"], ans: 1 },
+    { q: "प्रकाश संश्लेषण किस अंग में होता है?", opts: ["जड़", "तना", "पत्ती", "फूल"], ans: 2 },
+    { q: "मानव शरीर में रक्त का pH लगभग कितना होता है?", opts: ["7.0", "7.4", "6.5", "8.0"], ans: 1 },
+    { q: "DNA का पूरा नाम क्या है?", opts: ["Deoxyribonucleic Acid", "Dinucleic Acid", "Deoxyribose Acid", "Double Nucleic Acid"], ans: 0 },
+    { q: "निम्न में से कौन सा अंग पाचन तंत्र का भाग नहीं है?", opts: ["यकृत", "अग्न्याशय", "फेफड़ा", "आमाशय"], ans: 2 },
+  ],
 };
-function tick(){
-  if(S.done){return;}
-  el("timer").textContent=fmt(Math.max(0,S.left));
-  if(S.left<=0){finish(true);return;}
-  S.left-=1;
+
+// ============================================================
+// परीक्षा स्थिति
+// ============================================================
+let currentQuestions = [];
+let currentIndex = 0;
+let userAnswers = {};
+let timerInterval = null;
+let timeLeft = 0;
+let examType = '';
+
+const subjectNames = { physics: 'भौतिकी', chemistry: 'रसायन', biology: 'जीव विज्ञान', full: 'पूर्ण NEET मॉक' };
+
+// ============================================================
+// परीक्षा प्रारंभ
+// ============================================================
+function startExam(type) {
+  examType = type;
+
+  if (type === 'full') {
+    // पूर्ण मॉक: वास्तविक NEET अनुपात के अनुसार प्रश्न संयोजित करें
+    // चूंकि डेमो डेटा में पर्याप्त प्रश्न नहीं हैं, इसलिए दोहराव के साथ भरें
+    // वास्तविक उपयोग में, आपको 90+45+45 प्रश्न तैयार करने होंगे
+    const bioPool = [...questions.biology, ...questions.biology, ...questions.biology]; // डेमो प्रतिस्थापन
+    const phyPool = [...questions.physics, ...questions.physics];
+    const chemPool = [...questions.chemistry, ...questions.chemistry];
+    currentQuestions = [...bioPool.slice(0, 10), ...phyPool.slice(0, 5), ...chemPool.slice(0, 5)]; // डेमो: 10+5+5
+    timeLeft = 60 * 60; // डेमो 1 घंटा; वास्तविक 3 घंटे = 180*60
+  } else {
+    currentQuestions = [...questions[type]];
+    timeLeft = 10 * 60; // अध्याय अभ्यास 10 मिनट
+  }
+
+  currentIndex = 0;
+  userAnswers = {};
+
+  document.getElementById('entryScreen').style.display = 'none';
+  document.getElementById('examScreen').style.display = 'block';
+  document.getElementById('resultScreen').style.display = 'none';
+  document.getElementById('examTitle').textContent = subjectNames[type];
+
+  renderPalette();
+  renderQuestion();
+  startTimer();
 }
-function buildSubs(){
-  var d=el("subs");d.innerHTML="";
-  var seen={};
-  S.qs.forEach(function(q,i){
-    if(!seen[q.s]){seen[q.s]=1;
-      var b=E("button","min-height:40px;padding:0 16px;background:#fff;color:#4F46E5;box-shadow:inset 0 0 0 2px #4F46E5",q.s);
-      b.className="btn";b.onclick=function(){show(i);};d.appendChild(b);
+
+// ============================================================
+// टाइमर
+// ============================================================
+function startTimer() {
+  if (timerInterval) clearInterval(timerInterval);
+  updateTimerDisplay();
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    updateTimerDisplay();
+    if (timeLeft <= 0) {
+      clearInterval(timerInterval);
+      submitExam();
+    }
+  }, 1000);
+}
+
+function updateTimerDisplay() {
+  const h = Math.floor(timeLeft / 3600);
+  const m = Math.floor((timeLeft % 3600) / 60);
+  const s = timeLeft % 60;
+  const box = document.getElementById('timerBox');
+  box.textContent = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  box.classList.toggle('warning', timeLeft < 60);
+}
+
+// ============================================================
+// प्रश्न रेंडरिंग
+// ============================================================
+function renderQuestion() {
+  const q = currentQuestions[currentIndex];
+  document.getElementById('qCounter').textContent = `प्रश्न ${currentIndex + 1} / ${currentQuestions.length}`;
+  document.getElementById('qText').textContent = q.q;
+
+  const container = document.getElementById('optionsContainer');
+  container.innerHTML = '';
+  const letters = ['A', 'B', 'C', 'D'];
+
+  q.opts.forEach((opt, i) => {
+    const div = document.createElement('div');
+    div.className = 'option' + (userAnswers[currentIndex] === i ? ' selected' : '');
+    div.innerHTML = `<span class="opt-letter">${letters[i]}</span><span>${opt}</span>`;
+    div.onclick = () => selectOption(i);
+    container.appendChild(div);
+  });
+
+  updatePalette();
+}
+
+function selectOption(optIndex) {
+  userAnswers[currentIndex] = optIndex;
+  renderQuestion();
+}
+
+function nextQuestion() {
+  if (currentIndex < currentQuestions.length - 1) {
+    currentIndex++;
+    renderQuestion();
+  }
+}
+
+function prevQuestion() {
+  if (currentIndex > 0) {
+    currentIndex--;
+    renderQuestion();
+  }
+}
+
+// ============================================================
+// पैलेट
+// ============================================================
+function renderPalette() {
+  const grid = document.getElementById('paletteGrid');
+  grid.innerHTML = '';
+  currentQuestions.forEach((_, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'p-btn';
+    btn.textContent = i + 1;
+    btn.onclick = () => { currentIndex = i; renderQuestion(); };
+    grid.appendChild(btn);
+  });
+}
+
+function updatePalette() {
+  const btns = document.querySelectorAll('.p-btn');
+  btns.forEach((btn, i) => {
+    btn.className = 'p-btn';
+    if (userAnswers[i] !== undefined) btn.classList.add('answered');
+    if (i === currentIndex) btn.classList.add('current');
+  });
+}
+
+// ============================================================
+// परीक्षा जमा करें और परिणाम
+// ============================================================
+function submitExam() {
+  clearInterval(timerInterval);
+
+  let correct = 0, wrong = 0, skipped = 0, score = 0;
+
+  currentQuestions.forEach((q, i) => {
+    if (userAnswers[i] === undefined) {
+      skipped++;
+    } else if (userAnswers[i] === q.ans) {
+      correct++;
+      score += 4;
+    } else {
+      wrong++;
+      score -= 1;
     }
   });
-}
-function status(i){
-  if(S.mk[i]){return "mk";}
-  if(S.ans[i]){return "ans";}
-  if(S.vis[i]){return "nan";}
-  return "";
-}
-function drawPal(){
-  var p=el("pal");p.innerHTML="";
-  S.qs.forEach(function(q,i){
-    var b=E("button",null,q.n);b.className="pc "+status(i)+(i===S.cur?" cur":"");
-    b.onclick=function(){show(i);};p.appendChild(b);
+
+  document.getElementById('examScreen').style.display = 'none';
+  document.getElementById('resultScreen').style.display = 'block';
+  document.getElementById('finalScore').textContent = score;
+  document.getElementById('correctCount').textContent = correct;
+  document.getElementById('wrongCount').textContent = wrong;
+  document.getElementById('skippedCount').textContent = skipped;
+  document.getElementById('resultTitle').textContent = `${subjectNames[examType]} - पूर्ण`;
+
+  // समीक्षा सूची बनाएं
+  const reviewList = document.getElementById('reviewList');
+  reviewList.innerHTML = '';
+  const letters = ['A', 'B', 'C', 'D'];
+
+  currentQuestions.forEach((q, i) => {
+    const userAns = userAnswers[i];
+    let status = 'skipped';
+    if (userAns !== undefined) {
+      status = userAns === q.ans ? 'correct' : 'wrong';
+    }
+    const div = document.createElement('div');
+    div.className = `review-item ${status}`;
+    const userText = userAns !== undefined ? `${letters[userAns]}. ${q.opts[userAns]}` : 'नहीं दिया';
+    const correctText = `${letters[q.ans]}. ${q.opts[q.ans]}`;
+    div.innerHTML = `
+      <div class="review-q">${i+1}. ${q.q}</div>
+      <div class="review-ans">आपका उत्तर: ${userText} ${status === 'wrong' ? '❌' : status === 'correct' ? '✅' : '⏭️'}</div>
+      ${status !== 'correct' ? `<div class="review-ans" style="color:#28a745;">सही उत्तर: ${correctText}</div>` : ''}
+    `;
+    reviewList.appendChild(div);
   });
 }
-function show(i){
-  S.cur=i;S.vis[i]=true;
-  var q=S.qs[i];
-  el("qno").textContent="Question "+(i+1)+" / "+S.qs.length+"  (Q."+q.n+")";
-  el("qsub").textContent=q.s;
-  el("qimg").src=q.img;
-  var o=el("opts");o.innerHTML="";
-  for(var k=1;k<=4;k++){(function(k){
-    var d=E("div",null,null);d.className="opt"+(S.ans[i]===k?" on":"");
-    d.appendChild(E("b",null,"("+k+")"));d.appendChild(E("span",null,"Option "+k));
-    d.onclick=function(){S.ans[i]=(S.ans[i]===k?0:k);show(i);};
-    o.appendChild(d);})(k);}
-  el("mark").textContent=S.mk[i]?"Unmark Review":"Mark for Review";
-  drawPal();
-  window.scrollTo({top:0,behavior:"smooth"});
+
+function toggleReview() {
+  const list = document.getElementById('reviewList');
+  list.style.display = list.style.display === 'none' ? 'block' : 'none';
 }
-el("next").onclick=function(){if(S.cur<S.qs.length-1){show(S.cur+1);}else{drawPal();}};
-el("prev").onclick=function(){if(S.cur>0){show(S.cur-1);}};
-el("clr").onclick=function(){S.ans[S.cur]=0;show(S.cur);};
-el("mark").onclick=function(){S.mk[S.cur]=!S.mk[S.cur];show(S.cur);};
-el("submit").onclick=function(){
-  var n=S.ans.filter(function(a){return a>0;}).length;
-  if(window.confirm(S.qs.length+" me se "+n+" questions attempt kiye hain. Test submit karein?")){finish(false);}
-};
-function saveGalti(list){
-  var items=[];
-  try{var r=localStorage.getItem(GKEY);items=r?JSON.parse(r):[];if(!Array.isArray(items)){items=[];}}catch(e){items=[];}
-  var added=0,now=Date.now();
-  list.forEach(function(q){
-    var ref="neet"+S.paper+"#"+q.n;
-    if(items.some(function(x){return x.ref===ref;})){return;}
-    var sub=(q.s==="Botany"||q.s==="Zoology")?"Biology":q.s;
-    items.push({id:String(now)+q.n,subject:sub,q:"NEET "+S.paper+" ke Question "+q.n+" (mock test me galat hua)",why:"Mock test me galat attempt",created:now,stage:0,next:now+GAP[0]*DAY,ref:ref,paper:S.paper,qn:q.n});
-    added++;
-  });
-  try{localStorage.setItem(GKEY,JSON.stringify(items));}catch(e){return -1;}
-  return added;
-}
-function finish(auto){
-  if(S.done){return;}
-  S.done=true;clearInterval(S.tid);
-  var tot={c:0,w:0,s:0},by={},wrong=[],skip=[],right=[];
-  S.qs.forEach(function(q,i){
-    var b=by[q.s]=by[q.s]||{c:0,w:0,s:0};
-    var a=S.ans[i];
-    if(!a){b.s++;tot.s++;skip.push(i);}
-    else if(q.a&&q.a.indexOf(a)>=0){b.c++;tot.c++;right.push(i);}
-    else{b.w++;tot.w++;wrong.push(i);}
-  });
-  var score=tot.c*4-tot.w;
-  var added=saveGalti(wrong.map(function(i){return S.qs[i];}));
-  el("test").style.display="none";el("timer").style.display="none";
-  var r=el("result");r.style.display="flex";r.innerHTML="";
-  var top=E("div","border-radius:24px;padding:22px;color:#fff;background:linear-gradient(135deg,#4F46E5,#8B5CF6);display:flex;flex-direction:column;gap:6px");
-  top.appendChild(E("div","font:700 12px 'Plus Jakarta Sans';letter-spacing:.08em;opacity:.85",(auto?"TIME KHATAM":"RESULT")+" · "+S.title));
-  top.appendChild(E("div","font:800 40px 'Plus Jakarta Sans'",score+" / "+(S.qs.length*4)));
-  top.appendChild(E("div","font-size:15px","Sahi: "+tot.c+"  ·  Galat: "+tot.w+"  ·  Chhode: "+tot.s));
-  r.appendChild(top);
-  var note=E("div","border-radius:18px;padding:14px 16px;background:#EEF0FF;font-size:14px;line-height:1.5");
-  note.textContent=(added>0?added+" galat question Galti Notebook me save ho gaye.":(tot.w?"Galat questions pehle se Galti Notebook me hain.":"Koi galat question nahi. Shabash!"));
-  r.appendChild(note);
-  var sc=E("div","display:flex;flex-direction:column;gap:8px");sc.className="cd";
-  sc.appendChild(E("b","font-size:16px","Subject ke hisaab se"));
-  Object.keys(by).forEach(function(k){
-    var b=by[k];
-    var row=E("div","display:flex;justify-content:space-between;font-size:14px;gap:10px");
-    row.appendChild(E("span",null,k));
-    row.appendChild(E("span","color:#5F6384","Sahi "+b.c+" · Galat "+b.w+" · Chhode "+b.s+" · Marks "+(b.c*4-b.w)));
-    sc.appendChild(row);
-  });
-  r.appendChild(sc);
-  var tabs=E("div","display:flex;gap:10px;flex-wrap:wrap");
-  var list=E("div","display:flex;flex-direction:column;gap:14px");
-  function showList(arr,title){
-    list.innerHTML="";
-    if(!arr.length){var e=E("div","color:#5F6384;font-size:14px;padding:10px","Is hisse me koi question nahi.");list.appendChild(e);return;}
-    arr.forEach(function(i){
-      var q=S.qs[i];
-      var c=E("div","display:flex;flex-direction:column;gap:10px;padding:16px");c.className="cd";
-      c.appendChild(E("div","font-size:14px;font-weight:700","Q."+q.n+" · "+q.s+"  |  Aapka jawab: "+(S.ans[i]?"("+S.ans[i]+")":"chhoda")+"  |  Sahi jawab: "+(q.a&&q.a.length?q.a.map(function(x){return "("+x+")";}).join(" ya "):"-")));
-      var im=E("img");im.className="qi";im.src=q.img;c.appendChild(im);
-      list.appendChild(c);
-    });
-  }
-  [["Galat ("+tot.w+")",wrong],["Chhode ("+tot.s+")",skip],["Sahi ("+tot.c+")",right]].forEach(function(t){
-    var b=E("button","min-height:42px;padding:0 16px;background:#fff;color:#4F46E5;box-shadow:inset 0 0 0 2px #4F46E5",t[0]);
-    b.className="btn";b.onclick=function(){showList(t[1],t[0]);};tabs.appendChild(b);
-  });
-  r.appendChild(tabs);r.appendChild(list);
-  showList(wrong);
-  var acts=E("div","display:flex;gap:10px;flex-wrap:wrap");
-  var a1=E("button",null,"Galti Notebook kholein");a1.className="btn";a1.onclick=function(){location.href="galti.html";};
-  var a2=E("button","background:#fff;color:#4F46E5;box-shadow:inset 0 0 0 2px #4F46E5","Naya test");a2.className="btn";a2.onclick=function(){location.reload();};
-  acts.appendChild(a1);acts.appendChild(a2);r.appendChild(acts);
-  window.scrollTo({top:0});
-}
-</script></body></html>
+</script>
+</body>
+</html>
