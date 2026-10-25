@@ -1,16 +1,236 @@
 <!DOCTYPE html>
-<html lang="hi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>NEET Saathi</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap"><style>
-body{margin:0}a{color:inherit;text-decoration:none}
-.w{font-family:'Plus Jakarta Sans',sans-serif;color:#1B1B3A;background:#F1F2FB}
-.dk{background:radial-gradient(circle at 78% 35%,rgba(139,92,246,.55),transparent 45%),radial-gradient(circle at 8% 95%,rgba(34,211,238,.2),transparent 40%),#0B1030;color:#fff}
-.ct{max-width:1200px;margin:0 auto;padding:0 32px;box-sizing:border-box}
-.btn{min-height:48px;padding:0 24px;border-radius:14px;border:0;font:700 15px 'Plus Jakarta Sans',sans-serif;background:linear-gradient(135deg,#4F46E5,#8B5CF6);color:#fff;box-shadow:0 8px 24px rgba(79,70,229,.4)}
-.gh{background:rgba(255,255,255,.1);box-shadow:none;border:1px solid rgba(255,255,255,.35)}
-.cd{background:#fff;border-radius:24px;padding:24px;box-shadow:0 10px 30px rgba(55,48,163,.12)}
-.ch{display:inline-block;border-radius:20px;padding:4px 12px;font:700 12px 'Plus Jakarta Sans',sans-serif}</style></head>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEET Saathi - AI Teacher</title>
+    <!-- FontAwesome for Icons (Mic, Camera, Home etc.) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Basic Styling (Aap apne hisaab se isko badal sakte hain) */
+        body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f6fb; }
+        .header { background: #2a2a2a; color: white; padding: 15px; display: flex; align-items: center; justify-content: space-between; }
+        .main-container { display: flex; min-height: 100vh; }
+        .sidebar { width: 250px; background: white; padding: 20px; box-shadow: 2px 0 5px rgba(0,0,0,0.05); }
+        .sidebar ul { list-style: none; padding: 0; }
+        .sidebar li { padding: 12px; margin-bottom: 5px; border-radius: 8px; color: #555; cursor: pointer; }
+        .sidebar li.active { background: #e8eaff; color: #5548d9; font-weight: bold; }
+        .content { flex: 1; padding: 20px; max-width: 800px; margin: 0 auto; }
+        
+        /* Cards and Boxes */
+        .card { background: white; border-radius: 15px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
+        .tag { font-size: 12px; color: #5548d9; background: #e8eaff; padding: 4px 8px; border-radius: 5px; display: inline-block; margin-bottom: 10px;}
+        .short-answer { background: #6a5acd; color: white; padding: 20px; border-radius: 12px; margin-bottom: 20px; font-size: 16px; }
+        
+        /* Steps */
+        .step { display: flex; margin-bottom: 15px; }
+        .step-num { background: #5548d9; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; margin-right: 10px; flex-shrink: 0; }
+        
+        /* Search Box & New Icons */
+        .search-container { position: relative; display: flex; align-items: center; background: white; border-radius: 25px; padding: 5px 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); margin-top: 30px; }
+        .search-container input { flex: 1; border: none; outline: none; padding: 15px 5px; font-size: 15px; }
+        .search-container .icon-btn { background: none; border: none; cursor: pointer; padding: 10px; color: #6a5acd; font-size: 18px; }
+        .search-container .send-btn { background: #6a5acd; color: white; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-weight: bold; }
+        
+        /* Diagram Box (Default hidden) */
+        #diagramSection { display: none; background: #fbfbfb; border: 1px solid #eee; border-radius: 15px; padding: 20px; margin-top: 20px; text-align: center; }
+        
+        .formula-box { background: #f8f9fa; padding: 15px; border-radius: 10px; font-family: monospace; margin-bottom: 15px;}
+        .real-life { background: #e8f8f0; color: #1e6b4a; padding: 15px; border-radius: 10px; font-size: 14px; margin-bottom: 15px;}
+        .yaad-rakhein { background: #fff8e1; padding: 15px; border-radius: 10px; font-weight: bold; font-size: 14px;}
+    </style>
+</head>
 <body>
-<div class="w"><div class="dk"><div class="ct"><nav style="display:flex;align-items:center;gap:28px;padding:22px 0;flex-wrap:wrap"><a href="index.html" style="flex:1"><b style="font:800 22px 'Plus Jakarta Sans'">NEET Saathi</b></a><a href="teacher.html">AI Teacher</a><a href="test.html">Mock Test</a><a href="galti.html">Galti Notebook</a><a href="weak.html">Progress</a><a href="plan.html">Daily Plan</a><button class="btn" style="min-height:44px" onclick="location.href='teacher.html'">Start for Free</button></nav>
-<div style="display:flex;flex-wrap:wrap;gap:40px;align-items:center;padding:36px 0 72px"><div style="flex:1 1 440px;display:flex;flex-direction:column;gap:22px"><span class="ch" style="background:rgba(34,211,238,.16);color:#7DE8F8;align-self:flex-start">Har answer ke saath book reference</span><h1 style="margin:0;font:800 52px/1.1 'Plus Jakarta Sans'">Koi doubt? Dhruva Sir diagram ke saath step-by-step explain karenge.</h1><p style="margin:0;font-size:18px;line-height:1.6;color:rgba(255,255,255,.82)">Apna question type karein ya photo upload karein. Dhruva Sir simple Hinglish mein, ek-ek step ke saath concept clear karte hain, bilkul ek real teacher ki tarah.</p><div style="display:flex;gap:14px;flex-wrap:wrap"><button class="btn" onclick="location.href='teacher.html'">Ask your doubt</button><button class="btn gh" onclick="location.href='test.html'">Take CBT Mock Test</button></div><div style="display:flex;flex-direction:column;gap:10px"><div style="display:flex;gap:8px;align-items:center;font:600 14px 'Plus Jakarta Sans';color:rgba(255,255,255,.88)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22D3EE" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>Har answer ke saath book ka naam aur question number</div><div style="display:flex;gap:8px;align-items:center;font:600 14px 'Plus Jakarta Sans';color:rgba(255,255,255,.88)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22D3EE" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>Diagram nahi hai? Dhruva Sir khud clear diagram banate hain</div><div style="display:flex;gap:8px;align-items:center;font:600 14px 'Plus Jakarta Sans';color:rgba(255,255,255,.88)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22D3EE" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>Galti Notebook se weak topics strong hote hain</div></div></div>
-<div style="flex:1 1 360px;display:flex;justify-content:center"><div style="position:relative;width:340px;padding:20px;border-radius:32px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2)"><svg viewBox="0 0 240 280" width="300" role="img" aria-label="Dhruva Sir, AI teacher robot"><circle cx="120" cy="140" r="112" fill="rgba(139,92,246,.28)"/><path d="M120 44V22" stroke="#C7CBF5" stroke-width="4"/><circle cx="120" cy="16" r="8" fill="#FFC857"/><rect x="48" y="98" width="14" height="34" rx="7" fill="#8B5CF6"/><rect x="178" y="98" width="14" height="34" rx="7" fill="#8B5CF6"/><rect x="60" y="68" width="120" height="100" rx="30" fill="#EEF0FF" stroke="#C7CBF5" stroke-width="3"/><rect x="74" y="86" width="92" height="62" rx="20" fill="#12163F"/><circle cx="100" cy="112" r="9" fill="#22D3EE"/><circle cx="140" cy="112" r="9" fill="#22D3EE"/><path d="M104 130Q120 143 136 130" stroke="#22D3EE" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M68 56L120 32L172 56L120 74Z" fill="#1B1B3A"/><path d="M172 56L182 88" stroke="#FFC857" stroke-width="3"/><circle cx="182" cy="90" r="5" fill="#FFC857"/><rect x="56" y="186" width="24" height="54" rx="12" fill="#8B5CF6"/><rect x="160" y="186" width="24" height="54" rx="12" fill="#8B5CF6"/><rect x="78" y="176" width="84" height="76" rx="26" fill="#4F46E5"/><circle cx="120" cy="212" r="14" fill="#FFC857"/><path d="M113 212l5 5 9-10" stroke="#1B1B3A" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><div style="position:absolute;top:18px;left:-34px;background:#fff;color:#1B1B3A;border-radius:16px;padding:10px 14px;font:700 13px 'Plus Jakarta Sans';box-shadow:0 10px 24px rgba(0,0,0,.3)">Diagram ban raha hai...</div><div style="position:absolute;bottom:26px;right:-30px;background:#FFC857;color:#1B1B3A;border-radius:16px;padding:10px 14px;font:700 13px 'Plus Jakarta Sans'">[Book ka naam] · Q. [number]</div></div></div></div></div></div>
-<div class="ct" style="padding-top:64px;padding-bottom:24px"><h2 style="margin:0 0 24px;font:800 34px 'Plus Jakarta Sans';text-align:center">Doubt solve karein, sirf 3 simple steps mein</h2><div style="display:flex;flex-wrap:wrap;gap:20px"><div class="cd" style="flex:1 1 260px"><div style="width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#4F46E5,#8B5CF6);color:#fff;display:flex;align-items:center;justify-content:center;font:800 20px 'Plus Jakarta Sans'">1</div><h3 style="margin:14px 0 6px;font-size:20px">Doubt submit karein</h3><p style="margin:0;color:#5F6384;line-height:1.55">Question type karein ya photo upload karein. Diagram ho ya na ho, koi problem nahi.</p></div><div class="cd" style="flex:1 1 260px"><div style="width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#4F46E5,#8B5CF6);color:#fff;display:flex;align-items:center;justify-content:center;font:800 20px 'Plus Jakarta Sans'">2</div><h3 style="margin:14px 0 6px;font-size:20px">Step-by-step explanation</h3><p style="margin:0;color:#5F6384;line-height:1.55">Diagram ke saath, ek time par ek concept, aur beech-beech mein chhote questions.</p></div><div class="cd" style="flex:1 1 260px"><div style="width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#4F46E5,#8B5CF6);color:#fff;display:flex;align-items:center;justify-content:center;font:800 20px 'Plus Jakarta Sans'">3</div><h3 style="margin:14px 0 6px;font-size:20px">Practice karein</h3><p style="margin:0;color:#5F6384;line-height:1.55">CBT mock test dein. Galat questions Galti Notebook mein automatically save ho jaate hain.</p></div></div></div>
-<div class="ct" style="padding-top:40px;padding-bottom:72px"><div style="display:flex;flex-wrap:wrap;gap:20px"><div class="cd" style="flex:1 1 240px;padding:20px"><div style="height:8px;width:48px;border-radius:4px;background:#4F46E5"></div><h4 style="margin:14px 0 6px;font-size:18px">CBT Mock Test</h4><p style="margin:0;color:#5F6384;line-height:1.5;font-size:14px">Real exam jaisi screen, timer aur question palette.</p></div><div class="cd" style="flex:1 1 240px;padding:20px"><div style="height:8px;width:48px;border-radius:4px;background:#B4540A"></div><h4 style="margin:14px 0 6px;font-size:18px">Galti Notebook</h4><p style="margin:0;color:#5F6384;line-height:1.5;font-size:14px">Test mein jo question galat ho, wo automatically yahan save ho jaata hai. Dhruva Sir explain karte hain ki galti kyun hui. Kuch din baad wahi concept dobara poocha jaata hai, taaki aapki preparation strong rahe.</p></div><div class="cd" style="flex:1 1 240px;padding:20px"><div style="height:8px;width:48px;border-radius:4px;background:#22A6B8"></div><h4 style="margin:14px 0 6px;font-size:18px">Weak Topic Tracker</h4><p style="margin:0;color:#5F6384;line-height:1.5;font-size:14px">Har test ke baad dikhata hai ki Physics, Chemistry ya Biology ke kaun se topics mein marks cut ho rahe hain. Har topic Weak, Average ya Strong mark hota hai, aur clear hota hai ki pehle kya padhna hai.</p></div><div class="cd" style="flex:1 1 240px;padding:20px"><div style="height:8px;width:48px;border-radius:4px;background:#8B5CF6"></div><h4 style="margin:14px 0 6px;font-size:18px">Daily Study Buddy</h4><p style="margin:0;color:#5F6384;line-height:1.5;font-size:14px">Roz subah 3-4 chhote tasks milte hain, jaise ek chapter aur kuch practice questions. Task complete hote hi tick karein. Thakan ya stress ho to Dhruva Sir motivate karte hain, aur raat ko din ka review bhi karte hain.</p></div></div></div></div></body></html>
+
+    <!-- Top Header (Aapke screenshot ke hisaab se) -->
+    <div class="header">
+        <i class="fa-solid fa-house" style="font-size: 20px;"></i>
+        <div style="background: #444; padding: 8px 15px; border-radius: 20px; font-size: 14px;">atnotbyarif.github.io</div>
+        <div>
+            <i class="fa-solid fa-plus" style="margin-right: 15px;"></i>
+            <i class="fa-solid fa-ellipsis-vertical"></i>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h3 style="color: #5548d9;">NEET Saathi</h3>
+            <ul>
+                <li class="active">AI Teacher</li>
+                <li>Mock Test</li>
+                <li>Galti Notebook</li>
+                <li>Weak Topics</li>
+                <li>Daily Plan</li>
+            </ul>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="content">
+            
+            <!-- Question Card -->
+            <div class="card">
+                <span class="tag">Biology</span>
+                <span class="tag">Cell: The Unit of Life</span>
+                <span class="tag">Medium</span>
+                <h2 style="margin-top: 10px;">Mitochondria ko cell ka powerhouse kyun kehte hain?</h2>
+                <p style="color: #777; font-size: 14px;">Ye ek sample hai. Neeche apna doubt likhkar Send dabayein.</p>
+            </div>
+
+            <!-- Short Answer -->
+            <div class="short-answer">
+                <p style="font-size: 12px; margin-top: 0; opacity: 0.8;">SHORT ANSWER</p>
+                <b>Mitochondria cell ke liye ATP (energy) banata hai, isliye ise cell ka powerhouse kaha jata hai.</b>
+            </div>
+
+            <!-- Step-by-step Explanation -->
+            <div class="card">
+                <h4>Step-by-step Explanation</h4>
+                
+                <div class="step">
+                    <div class="step-num">1</div>
+                    <div><b>Cell ko energy chahiye</b><br><span style="font-size: 14px; color: #555;">Cell ke har kaam, jaise growth aur transport, ke liye energy ki zarurat hoti hai.</span></div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-num">2</div>
+                    <div><b>Energy ka form: ATP</b><br><span style="font-size: 14px; color: #555;">Cell ki energy currency ATP hai, jo turant use ho sakti hai.</span></div>
+                </div>
+
+                <div class="step">
+                    <div class="step-num">3</div>
+                    <div><b>ATP ka production</b><br><span style="font-size: 14px; color: #555;">Mitochondria ki inner membrane (cristae) par cellular respiration se ATP banta hai.</span></div>
+                </div>
+            </div>
+
+            <!-- Formula and Example -->
+            <div class="card">
+                <div class="formula-box">
+                    <span style="font-size: 12px; color: #5548d9; font-weight: bold;">FORMULA</span><br>
+                    <b>Glucose + O2 -> CO2 + H2O + ATP</b>
+                </div>
+                <div class="real-life">
+                    <span style="font-size: 12px; font-weight: bold;">REAL-LIFE EXAMPLE</span><br>
+                    Jaise power plant poore sheher ko bijli deta hai, waise mitochondria poori cell ko energy deta hai.
+                </div>
+            </div>
+
+            <!-- ========================================== -->
+            <!-- DIAGRAM SECTION (Yeh shuru mein hidden rahega) -->
+            <!-- ========================================== -->
+            <div id="diagramSection" class="card">
+                <h4>Diagram</h4>
+                <div style="text-align: center; padding: 20px; background: #fff; border-radius: 10px;">
+                    <!-- Diagram Image placeholder -->
+                    <div style="border: 2px solid #d97d54; border-radius: 50%; width: 200px; height: 120px; margin: 0 auto; position: relative; display: flex; align-items: center; justify-content: center;">
+                        <svg width="150" height="80" viewBox="0 0 100 50">
+                            <path d="M10 25 Q 25 5 40 25 T 70 25 T 100 25" fill="none" stroke="#d97d54" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <p style="font-size: 12px; color: #777;">Cristae: yahan ATP banta hai</p>
+                </div>
+            </div>
+            <!-- ========================================== -->
+
+            <!-- Yaad Rakhein -->
+            <div class="yaad-rakhein">
+                YAAD RAHEIN: Mitochondria = ATP ki factory
+            </div>
+
+            <!-- Interactive Question -->
+            <div class="card" style="background: #1a1a2e; color: white; margin-top: 20px;">
+                <p style="font-size: 12px; color: #a0a0c0;">AAPKE LIYE SAWAL</p>
+                <b>ATP banane ke liye cell ko kaunsi gas chahiye hoti hai?</b>
+            </div>
+
+            <!-- Buttons -->
+            <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                <button style="background: #6a5acd; color: white; border: none; padding: 10px 15px; border-radius: 8px;">Next Concept</button>
+                <button style="background: white; color: #6a5acd; border: 1px solid #6a5acd; padding: 10px 15px; border-radius: 8px;">Explain Differently</button>
+            </div>
+
+            <!-- ========================================== -->
+            <!-- SEARCH BAR WITH MIC AND CAMERA -->
+            <!-- ========================================== -->
+            <div class="search-container">
+                <input type="text" id="userInput" placeholder="Apna doubt yahan type karein...">
+                
+                <!-- Mic Button -->
+                <button class="icon-btn" onclick="startVoiceInput()" title="Bolkar puchein">
+                    <i class="fa-solid fa-microphone"></i>
+                </button>
+                
+                <!-- Camera Button -->
+                <button class="icon-btn" onclick="document.getElementById('cameraInput').click()" title="Photo khinche">
+                    <i class="fa-solid fa-camera"></i>
+                </button>
+                <!-- Hidden File Input for Camera -->
+                <input type="file" id="cameraInput" accept="image/*" capture="camera" style="display: none;" onchange="handleImageUpload(event)">
+                
+                <button class="send-btn" onclick="sendMessage()">Send</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- JAVASCRIPT LOGIC -->
+    <!-- ========================================== -->
+    <script>
+        // 1. VOICE INPUT (MIC) FUNCTION
+        function startVoiceInput() {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (SpeechRecognition) {
+                const recognition = new SpeechRecognition();
+                recognition.lang = 'hi-IN'; // Hindi language
+                recognition.interimResults = false;
+                
+                recognition.onstart = function() {
+                    document.getElementById('userInput').placeholder = "Sun raha hu... Boliye";
+                };
+                
+                recognition.onresult = function(event) {
+                    const transcript = event.results[0][0].transcript;
+                    document.getElementById('userInput').value = transcript;
+                    document.getElementById('userInput').placeholder = "Apna doubt yahan type karein...";
+                };
+                
+                recognition.onerror = function() {
+                    alert("Aawaz nahi aa rahi, mic check karein.");
+                    document.getElementById('userInput').placeholder = "Apna doubt yahan type karein...";
+                };
+                
+                recognition.start();
+            } else {
+                alert("Aapka browser voice support nahi karta.");
+            }
+        }
+
+        // 2. CAMERA IMAGE UPLOAD FUNCTION
+        function handleImageUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                alert("Photo select ho gayi! Ab isko AI ko bhejne ka code yahan aayega.");
+                // Yahan aap future me code likhenge ki photo server pe kaise jayegi
+            }
+        }
+
+        // 3. SEND BUTTON FUNCTION
+        function sendMessage() {
+            const text = document.getElementById('userInput').value;
+            if(text.trim() !== "") {
+                alert("Aapka sawal: " + text + "\n(Send ho gaya)");
+                // Yahan aap AI se answer laane ka code likhenge
+                
+                // --- DEMO: Diagram Section ko dikhana ---
+                // Asli app me, yahan condition lagegi: if(question needs diagram)
+                // Neeche wali line se diagram visible hota hai (test karne ke liye)
+                // document.getElementById('diagramSection').style.display = 'block'; 
+            }
+        }
+        
+        // TEST KARNE KE LIYE: Agar aap chahte hain ki page load hote hi diagram dikhe, 
+        // toh upar wali line se // hata dein.
+    </script>
+</body>
+</html>
