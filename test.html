@@ -1,408 +1,337 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NEET CBT Mock Test</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mock Test · NEET Saathi</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap">
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; background: #f5f7fa; color: #1a1a2e; padding: 16px; }
-  .container { max-width: 1100px; margin: 0 auto; }
+  body{margin:0}a{color:inherit;text-decoration:none}
+  .w{font-family:'Plus Jakarta Sans',sans-serif;color:#1B1B3A;background:#F1F2FB}
+  .dk{background:radial-gradient(circle at 78% 35%,rgba(139,92,246,.55),transparent 45%),radial-gradient(circle at 8% 95%,rgba(34,211,238,.2),transparent 40%),#0B1030;color:#fff}
+  .ct{max-width:1200px;margin:0 auto;padding:0 32px;box-sizing:border-box}
+  .btn{min-height:48px;padding:0 24px;border-radius:14px;border:0;font:700 15px 'Plus Jakarta Sans',sans-serif;background:linear-gradient(135deg,#4F46E5,#8B5CF6);color:#fff;box-shadow:0 8px 24px rgba(79,70,229,.4);cursor:pointer}
+  .gh{background:rgba(255,255,255,.1);box-shadow:none;border:1px solid rgba(255,255,255,.35)}
+  .cd{background:#fff;border-radius:24px;padding:24px;box-shadow:0 10px 30px rgba(55,48,163,.12)}
+  .ch{display:inline-block;border-radius:20px;padding:4px 12px;font:700 12px 'Plus Jakarta Sans',sans-serif}
 
-  /* प्रवेश पृष्ठ */
-  .entry-screen { display: block; }
-  .entry-header { text-align: center; padding: 40px 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 20px; color: white; margin-bottom: 24px; }
-  .entry-header h1 { font-size: 2rem; margin-bottom: 8px; }
-  .entry-header p { opacity: 0.9; font-size: 1rem; }
+  /* entry screen */
+  .mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:24px}
+  @media(max-width:760px){.mode-grid{grid-template-columns:1fr}}
+  .subj-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+  .subj-tab{flex:1 1 auto;min-height:44px;padding:0 16px;border-radius:12px;border:1.5px solid #e0e0e0;background:#fafafa;font:700 14px 'Plus Jakarta Sans';cursor:pointer;transition:.15s}
+  .subj-tab.active{background:#4F46E5;color:#fff;border-color:#4F46E5}
+  .chap-list{display:flex;flex-direction:column;gap:8px;max-height:320px;overflow-y:auto;padding-right:4px}
+  .chap-item{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-radius:12px;background:#fafafa;border:1px solid #eee;cursor:pointer;font:600 14px 'Plus Jakarta Sans';transition:.15s}
+  .chap-item:hover{background:#eef0ff;border-color:#4F46E5}
+  .chap-item .meta{font-size:12px;color:#5F6384;font-weight:600}
 
-  .mode-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-  @media (max-width: 700px) { .mode-grid { grid-template-columns: 1fr; } }
+  /* exam screen */
+  .exam-screen{display:none}
+  .exam-header{background:#fff;border-radius:16px;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;box-shadow:0 4px 14px rgba(55,48,163,.08);flex-wrap:wrap;gap:10px}
+  .exam-title{font:800 16px 'Plus Jakarta Sans'}
+  .timer-box{background:#1B1B3A;color:#fff;padding:8px 18px;border-radius:10px;font:800 16px 'Plus Jakarta Sans';font-variant-numeric:tabular-nums}
+  .timer-box.warning{background:#dc3545}
+  .exam-body{display:grid;grid-template-columns:1fr 250px;gap:16px}
+  @media(max-width:820px){.exam-body{grid-template-columns:1fr}}
+  .question-panel{background:#fff;border-radius:16px;padding:24px;box-shadow:0 4px 14px rgba(55,48,163,.08);min-height:420px}
+  .q-meta{display:flex;justify-content:space-between;margin-bottom:16px;color:#5F6384;font:600 13px 'Plus Jakarta Sans'}
+  .q-text{font:700 17px/1.7 'Plus Jakarta Sans';margin-bottom:24px}
+  .options{display:flex;flex-direction:column;gap:12px}
+  .option{padding:14px 18px;border:1.5px solid #e0e0e0;border-radius:14px;cursor:pointer;transition:.15s;display:flex;align-items:center;gap:12px;font:600 15px 'Plus Jakarta Sans'}
+  .option:hover{background:#f0f4ff;border-color:#4F46E5}
+  .option.selected{background:#4F46E5;color:#fff;border-color:#4F46E5}
+  .opt-letter{width:28px;height:28px;border-radius:50%;background:#eee;display:flex;align-items:center;justify-content:center;font:800 13px 'Plus Jakarta Sans';flex-shrink:0}
+  .option.selected .opt-letter{background:rgba(255,255,255,.3)}
+  .nav-btns{display:flex;gap:10px;margin-top:24px}
+  .nav-btns button{flex:1;min-height:48px;border:0;border-radius:14px;font:700 15px 'Plus Jakarta Sans';cursor:pointer;transition:.15s}
+  .btn-prev{background:#e0e0e0;color:#333}
+  .btn-next{background:#4F46E5;color:#fff}
+  .btn-submit{background:#28a745;color:#fff}
+  .palette-panel{background:#fff;border-radius:16px;padding:20px;box-shadow:0 4px 14px rgba(55,48,163,.08);height:fit-content;position:sticky;top:16px}
+  .palette-panel h3{font:800 14px 'Plus Jakarta Sans';margin-bottom:14px}
+  .palette-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:16px}
+  .p-btn{width:100%;aspect-ratio:1;border:1.5px solid #ddd;border-radius:8px;background:#fafafa;font:700 13px 'Plus Jakarta Sans';cursor:pointer;transition:.1s}
+  .p-btn.answered{background:#28a745;color:#fff;border-color:#28a745}
+  .p-btn.current{border-color:#1B1B3A;border-width:2.5px}
+  .legend{display:flex;flex-direction:column;gap:6px;font:600 12px 'Plus Jakarta Sans';color:#5F6384}
+  .legend-item{display:flex;align-items:center;gap:8px}
+  .legend-dot{width:14px;height:14px;border-radius:4px;border:1.5px solid #ddd}
+  .legend-dot.green{background:#28a745;border-color:#28a745}
 
-  .mode-card { background: white; border-radius: 16px; padding: 28px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); border: 2px solid transparent; transition: all 0.2s; }
-  .mode-card:hover { border-color: #667eea; transform: translateY(-2px); }
-  .mode-card h2 { font-size: 1.3rem; margin-bottom: 8px; color: #333; }
-  .mode-card .sub { color: #666; font-size: 0.9rem; margin-bottom: 20px; }
-
-  .subject-btns { display: flex; flex-direction: column; gap: 10px; }
-  .subject-btn { padding: 12px 20px; border-radius: 10px; border: 1.5px solid #e0e0e0; background: #fafafa; cursor: pointer; font-size: 1rem; font-weight: 500; text-align: left; transition: all 0.15s; }
-  .subject-btn:hover { background: #667eea; color: white; border-color: #667eea; }
-
-  .full-btn { width: 100%; padding: 14px; background: #764ba2; color: white; border: none; border-radius: 10px; font-size: 1.05rem; font-weight: 600; cursor: pointer; transition: background 0.15s; }
-  .full-btn:hover { background: #5a3a7a; }
-
-  /* परीक्षा इंटरफ़ेस */
-  .exam-screen { display: none; }
-  .exam-header { background: white; border-radius: 12px; padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); flex-wrap: wrap; gap: 10px; }
-  .exam-title { font-weight: 700; font-size: 1.1rem; }
-  .timer-box { background: #1a1a2e; color: #fff; padding: 8px 18px; border-radius: 8px; font-weight: 700; font-size: 1.1rem; font-variant-numeric: tabular-nums; }
-  .timer-box.warning { background: #dc3545; }
-
-  .exam-body { display: grid; grid-template-columns: 1fr 240px; gap: 16px; }
-  @media (max-width: 800px) { .exam-body { grid-template-columns: 1fr; } }
-
-  .question-panel { background: white; border-radius: 12px; padding: 24px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); min-height: 400px; }
-  .q-meta { display: flex; justify-content: space-between; margin-bottom: 16px; color: #666; font-size: 0.9rem; }
-  .q-text { font-size: 1.1rem; line-height: 1.7; margin-bottom: 24px; font-weight: 500; }
-
-  .options { display: flex; flex-direction: column; gap: 12px; }
-  .option { padding: 14px 18px; border: 1.5px solid #e0e0e0; border-radius: 10px; cursor: pointer; transition: all 0.15s; display: flex; align-items: center; gap: 12px; }
-  .option:hover { background: #f0f4ff; border-color: #667eea; }
-  .option.selected { background: #667eea; color: white; border-color: #667eea; }
-  .option input { display: none; }
-  .opt-letter { width: 28px; height: 28px; border-radius: 50%; background: #eee; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem; flex-shrink: 0; }
-  .option.selected .opt-letter { background: rgba(255,255,255,0.3); }
-
-  .nav-btns { display: flex; gap: 10px; margin-top: 24px; }
-  .nav-btns button { flex: 1; padding: 12px; border: none; border-radius: 10px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.15s; }
-  .btn-prev { background: #e0e0e0; color: #333; }
-  .btn-prev:hover { background: #ccc; }
-  .btn-next { background: #667eea; color: white; }
-  .btn-next:hover { background: #5568d3; }
-  .btn-submit { background: #28a745; color: white; }
-  .btn-submit:hover { background: #218838; }
-
-  /* प्रश्न पैलेट */
-  .palette-panel { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); height: fit-content; position: sticky; top: 16px; }
-  .palette-panel h3 { font-size: 0.95rem; margin-bottom: 14px; color: #333; }
-  .palette-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 16px; }
-  .p-btn { width: 100%; aspect-ratio: 1; border: 1.5px solid #ddd; border-radius: 8px; background: #fafafa; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: all 0.1s; }
-  .p-btn.answered { background: #28a745; color: white; border-color: #28a745; }
-  .p-btn.current { border-color: #1a1a2e; border-width: 2.5px; }
-
-  .legend { display: flex; flex-direction: column; gap: 6px; font-size: 0.8rem; color: #666; }
-  .legend-item { display: flex; align-items: center; gap: 8px; }
-  .legend-dot { width: 14px; height: 14px; border-radius: 4px; border: 1.5px solid #ddd; }
-  .legend-dot.green { background: #28a745; border-color: #28a745; }
-
-  /* परिणाम पृष्ठ */
-  .result-screen { display: none; }
-  .result-card { background: white; border-radius: 16px; padding: 40px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
-  .score-circle { width: 140px; height: 140px; border-radius: 50%; background: linear-gradient(135deg, #667eea, #764ba2); color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 auto 24px; }
-  .score-circle .num { font-size: 2.5rem; font-weight: 800; line-height: 1; }
-  .score-circle .label { font-size: 0.8rem; opacity: 0.9; }
-  .stat-row { display: flex; justify-content: center; gap: 40px; margin: 24px 0; flex-wrap: wrap; }
-  .stat-item { text-align: center; }
-  .stat-item .val { font-size: 1.6rem; font-weight: 700; }
-  .stat-item .lbl { font-size: 0.85rem; color: #666; }
-  .val.correct { color: #28a745; }
-  .val.wrong { color: #dc3545; }
-  .val.skipped { color: #999; }
-
-  .review-btn { padding: 14px 32px; background: #667eea; color: white; border: none; border-radius: 10px; font-size: 1rem; font-weight: 600; cursor: pointer; }
-  .review-btn:hover { background: #5568d3; }
-
-  .review-list { margin-top: 32px; text-align: left; }
-  .review-item { padding: 16px; border-radius: 10px; margin-bottom: 10px; border-left: 4px solid #ddd; background: #fafafa; }
-  .review-item.correct { border-left-color: #28a745; }
-  .review-item.wrong { border-left-color: #dc3545; }
-  .review-item.skipped { border-left-color: #999; }
-  .review-q { font-weight: 600; margin-bottom: 8px; }
-  .review-ans { font-size: 0.9rem; color: #555; }
+  /* result */
+  .result-screen{display:none}
+  .result-card{background:#fff;border-radius:24px;padding:40px;text-align:center;box-shadow:0 10px 30px rgba(55,48,163,.12)}
+  .score-circle{width:150px;height:150px;border-radius:50%;background:linear-gradient(135deg,#4F46E5,#8B5CF6);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 24px}
+  .score-circle .num{font:800 42px 'Plus Jakarta Sans';line-height:1}
+  .score-circle .label{font:600 12px 'Plus Jakarta Sans';opacity:.9}
+  .stat-row{display:flex;justify-content:center;gap:40px;margin:24px 0;flex-wrap:wrap}
+  .stat-item{text-align:center}
+  .stat-item .val{font:800 26px 'Plus Jakarta Sans'}
+  .stat-item .lbl{font:600 13px 'Plus Jakarta Sans';color:#5F6384}
+  .val.correct{color:#28a745}.val.wrong{color:#dc3545}.val.skipped{color:#999}
+  .review-btn{padding:14px 32px;background:#4F46E5;color:#fff;border:0;border-radius:14px;font:700 15px 'Plus Jakarta Sans';cursor:pointer}
+  .review-list{margin-top:32px;text-align:left}
+  .review-item{padding:16px;border-radius:12px;margin-bottom:10px;border-left:4px solid #ddd;background:#fafafa}
+  .review-item.correct{border-left-color:#28a745}
+  .review-item.wrong{border-left-color:#dc3545}
+  .review-item.skipped{border-left-color:#999}
+  .review-q{font:700 14px 'Plus Jakarta Sans';margin-bottom:8px}
+  .review-ans{font:600 13px 'Plus Jakarta Sans';color:#555}
 </style>
 </head>
 <body>
-<div class="container">
+<div class="w">
 
-  <!-- प्रवेश पृष्ठ -->
-  <div class="entry-screen" id="entryScreen">
-    <div class="entry-header">
-      <h1>NEET CBT Mock Test</h1>
-      <p>अध्याय-वार अभ्यास या पूर्ण परीक्षा सिमुलेशन चुनें</p>
-    </div>
-    <div class="mode-grid">
-      <div class="mode-card">
-        <h2>📚 अध्याय-वार अभ्यास</h2>
-        <p class="sub">एकल विषय चुनें, लक्षित अभ्यास करें</p>
-        <div class="subject-btns">
-          <button class="subject-btn" onclick="startExam('physics')">⚡ भौतिकी (Physics)</button>
-          <button class="subject-btn" onclick="startExam('chemistry')">🧪 रसायन (Chemistry)</button>
-          <button class="subject-btn" onclick="startExam('biology')">🧬 जीव विज्ञान (Biology)</button>
-        </div>
-      </div>
-      <div class="mode-card">
-        <h2>📝 पूर्ण NEET मॉक</h2>
-        <p class="sub">180 प्रश्न · 3 घंटे · वास्तविक अनुपात</p>
-        <p style="font-size: 0.9rem; color: #555; margin-bottom: 20px; line-height: 1.8;">
-          Biology: 90 प्रश्न<br>
-          Physics: 45 प्रश्न<br>
-          Chemistry: 45 प्रश्न
-        </p>
-        <button class="full-btn" onclick="startExam('full')">पूर्ण मॉक प्रारंभ करें</button>
-      </div>
+  <!-- HEADER (same as your site) -->
+  <div class="dk">
+    <div class="ct">
+      <nav style="display:flex;align-items:center;gap:28px;padding:22px 0;flex-wrap:wrap">
+        <a href="index.html" style="flex:1"><b style="font:800 22px 'Plus Jakarta Sans'">NEET Saathi</b></a>
+        <a href="teacher.html">AI Teacher</a>
+        <a href="test.html">Mock Test</a>
+        <a href="galti.html">Galti Notebook</a>
+        <a href="weak.html">Progress</a>
+        <a href="plan.html">Daily Plan</a>
+        <button class="btn" style="min-height:44px" onclick="location.href='teacher.html'">Start for Free</button>
+      </nav>
     </div>
   </div>
 
-  <!-- परीक्षा इंटरफ़ेस -->
-  <div class="exam-screen" id="examScreen">
-    <div class="exam-header">
-      <div class="exam-title" id="examTitle">परीक्षा</div>
-      <div class="timer-box" id="timerBox">03:00:00</div>
-    </div>
-    <div class="exam-body">
-      <div class="question-panel">
-        <div class="q-meta">
-          <span id="qCounter">प्रश्न 1 / 10</span>
-          <span id="qMarks">+4 / -1</span>
-        </div>
-        <div class="q-text" id="qText">प्रश्न लोड हो रहा है...</div>
-        <div class="options" id="optionsContainer"></div>
-        <div class="nav-btns">
-          <button class="btn-prev" onclick="prevQuestion()">← पिछला</button>
-          <button class="btn-next" onclick="nextQuestion()">अगला →</button>
-          <button class="btn-submit" onclick="submitExam()">जमा करें</button>
-        </div>
-      </div>
-      <div class="palette-panel">
-        <h3>प्रश्न पैलेट</h3>
-        <div class="palette-grid" id="paletteGrid"></div>
-        <div class="legend">
-          <div class="legend-item"><span class="legend-dot green"></span> उत्तर दिया</div>
-          <div class="legend-item"><span class="legend-dot"></span> नहीं दिया</div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <div class="ct" style="padding-top:40px;padding-bottom:72px">
 
-  <!-- परिणाम पृष्ठ -->
-  <div class="result-screen" id="resultScreen">
-    <div class="result-card">
-      <div class="score-circle">
-        <span class="num" id="finalScore">0</span>
-        <span class="label">अंक</span>
-      </div>
-      <h2 id="resultTitle">परीक्षा पूर्ण</h2>
-      <div class="stat-row">
-        <div class="stat-item"><div class="val correct" id="correctCount">0</div><div class="lbl">सही</div></div>
-        <div class="stat-item"><div class="val wrong" id="wrongCount">0</div><div class="lbl">गलत</div></div>
-        <div class="stat-item"><div class="val skipped" id="skippedCount">0</div><div class="lbl">छोड़े</div></div>
-      </div>
-      <button class="review-btn" onclick="toggleReview()">उत्तर समीक्षा देखें</button>
-      <div class="review-list" id="reviewList" style="display:none;"></div>
-    </div>
-  </div>
+    <!-- ENTRY SCREEN -->
+    <div id="entryScreen">
+      <h1 style="margin:0 0 8px;font:800 34px 'Plus Jakarta Sans'">Mock Test</h1>
+      <p style="margin:0 0 8px;color:#5F6384;font:600 15px 'Plus Jakarta Sans'">Choose chapter-wise revision or a full NEET simulation.</p>
 
+      <div class="mode-grid">
+        <!-- SECTION 1: chapter-wise -->
+        <div class="cd">
+          <h2 style="margin:0 0 6px;font:800 20px 'Plus Jakarta Sans'">Chapter-wise Revision</h2>
+          <p style="margin:0 0 18px;color:#5F6384;font:600 13px 'Plus Jakarta Sans'">Pick a subject, then a chapter. 10 min per test.</p>
+          <div class="subj-tabs">
+            <button class="subj-tab active" data-subj="physics" onclick="switchSubject('physics')">Physics</button>
+            <button class="subj-tab" data-subj="chemistry" onclick="switchSubject('chemistry')">Chemistry</button>
+            <button class="subj-tab" data-subj="biology" onclick="switchSubject('biology')">Biology</button>
+          </div>
+          <div class="chap-list" id="chapList"></div>
+        </div>
+
+        <!-- SECTION 2: full mock -->
+        <div class="cd">
+          <h2 style="margin:0 0 6px;font:800 20px 'Plus Jakarta Sans'">Full NEET Mock</h2>
+          <p style="margin:0 0 18px;color:#5F6384;font:600 13px 'Plus Jakarta Sans'">180 questions · 180 minutes · +4 / -1</p>
+          <div style="background:#fafafa;border:1px solid #eee;border-radius:14px;padding:16px;margin-bottom:18px;font:600 13px/1.9 'Plus Jakarta Sans';color:#5F6384">
+            Biology: 90 questions<br>
+            Physics: 45 questions<br>
+            Chemistry: 45 questions
+          </div>
+          <button class="btn" style="width:100%" onclick="startExam('full')">Start Full Mock</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- EXAM SCREEN -->
+    <div class="exam-screen" id="examScreen">
+      <div class="exam-header">
+        <div class="exam-title" id="examTitle">Test</div>
+        <div class="timer-box" id="timerBox">00:00</div>
+      </div>
+      <div class="exam-body">
+        <div class="question-panel">
+          <div class="q-meta">
+            <span id="qCounter">Question 1 / 10</span>
+            <span id="qMarks">+4 / -1</span>
+          </div>
+          <div class="q-text" id="qText">Loading...</div>
+          <div class="options" id="optionsContainer"></div>
+          <div class="nav-btns">
+            <button class="btn-prev" onclick="prevQuestion()">← Previous</button>
+            <button class="btn-next" onclick="nextQuestion()">Next →</button>
+            <button class="btn-submit" onclick="submitExam()">Submit</button>
+          </div>
+        </div>
+        <div class="palette-panel">
+          <h3>Question Palette</h3>
+          <div class="palette-grid" id="paletteGrid"></div>
+          <div class="legend">
+            <div class="legend-item"><span class="legend-dot green"></span> Answered</div>
+            <div class="legend-item"><span class="legend-dot"></span> Not answered</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESULT SCREEN -->
+    <div class="result-screen" id="resultScreen">
+      <div class="result-card">
+        <div class="score-circle">
+          <span class="num" id="finalScore">0</span>
+          <span class="label">MARKS</span>
+        </div>
+        <h2 id="resultTitle" style="margin:0 0 6px;font:800 22px 'Plus Jakarta Sans'">Test Complete</h2>
+        <div class="stat-row">
+          <div class="stat-item"><div class="val correct" id="correctCount">0</div><div class="lbl">Correct</div></div>
+          <div class="stat-item"><div class="val wrong" id="wrongCount">0</div><div class="lbl">Wrong</div></div>
+          <div class="stat-item"><div class="val skipped" id="skippedCount">0</div><div class="lbl">Skipped</div></div>
+        </div>
+        <button class="review-btn" onclick="toggleReview()">Review Answers</button>
+        <div class="review-list" id="reviewList" style="display:none"></div>
+      </div>
+    </div>
+
+  </div>
 </div>
 
 <script>
-// ============================================================
-// प्रश्न डेटा - यहाँ अपने प्रश्न डालें
-// ============================================================
-const questions = {
+/* ============================================================
+   CHAPTER DATA — edit chapter names here
+   ============================================================ */
+const chapters = {
   physics: [
-    { q: "विद्युत धारा का SI मात्रक क्या है?", opts: ["वोल्ट", "एम्पियर", "ओम", "वाट"], ans: 1 },
-    { q: "प्रकाश की गति निर्वात में लगभग कितनी है?", opts: ["3×10⁶ m/s", "3×10⁸ m/s", "3×10¹⁰ m/s", "3×10⁵ m/s"], ans: 1 },
-    { q: "निम्न में से कौन अदिश राशि है?", opts: ["बल", "वेग", "कार्य", "त्वरण"], ans: 2 },
-    { q: "ओम का नियम किसके लिए लागू होता है?", opts: ["धात्विक चालक", "अर्धचालक", "विद्युत अपघट्य", "निर्वात"], ans: 0 },
-    { q: "लेंस की क्षमता का SI मात्रक है?", opts: ["मीटर", "डायोप्टर", "फोकस", "वाट"], ans: 1 },
+    "Units and Measurements","Motion in a Straight Line","Motion in a Plane",
+    "Laws of Motion","Work, Energy and Power","System of Particles and Rotational Motion",
+    "Gravitation","Mechanical Properties of Solids","Mechanical Properties of Fluids",
+    "Thermal Properties of Matter","Thermodynamics","Kinetic Theory",
+    "Oscillations","Waves","Electric Charges and Fields","Electrostatic Potential and Capacitance",
+    "Current Electricity","Moving Charges and Magnetism","Magnetism and Matter",
+    "Electromagnetic Induction","Alternating Current","Electromagnetic Waves",
+    "Ray Optics and Optical Instruments","Wave Optics","Dual Nature of Radiation and Matter",
+    "Atoms","Nuclei","Semiconductor Electronics"
   ],
   chemistry: [
-    { q: "जल का रासायनिक सूत्र क्या है?", opts: ["H₂O₂", "H₂O", "HO", "H₃O"], ans: 1 },
-    { q: "निम्न में से कौन उत्कृष्ट गैस है?", opts: ["ऑक्सीजन", "नाइट्रोजन", "हीलियम", "हाइड्रोजन"], ans: 2 },
-    { q: "pH मान 7 से कम होने पर विलयन होता है?", opts: ["क्षारीय", "उदासीन", "अम्लीय", "लवणीय"], ans: 2 },
-    { q: "आवर्त सारणी में क्षैतिज पंक्ति को क्या कहते हैं?", opts: ["समूह", "आवर्त", "ब्लॉक", "श्रेणी"], ans: 1 },
-    { q: "सोडियम का प्रतीक क्या है?", opts: ["So", "Sd", "Na", "Nm"], ans: 2 },
+    "Some Basic Concepts of Chemistry","Structure of Atom","Classification of Elements and Periodicity",
+    "Chemical Bonding and Molecular Structure","Thermodynamics","Equilibrium",
+    "Redox Reactions","Organic Chemistry: Some Basic Principles","Hydrocarbons",
+    "Solutions","Electrochemistry","Chemical Kinetics","The d- and f-Block Elements",
+    "Coordination Compounds","Haloalkanes and Haloarenes","Alcohols, Phenols and Ethers",
+    "Aldehydes, Ketones and Carboxylic Acids","Amines","Biomolecules","Polymers"
   ],
   biology: [
-    { q: "कोशिका का ऊर्जा गृह किसे कहते हैं?", opts: ["राइबोसोम", "माइटोकॉन्ड्रिया", "केन्द्रक", "गॉल्जी बॉडी"], ans: 1 },
-    { q: "प्रकाश संश्लेषण किस अंग में होता है?", opts: ["जड़", "तना", "पत्ती", "फूल"], ans: 2 },
-    { q: "मानव शरीर में रक्त का pH लगभग कितना होता है?", opts: ["7.0", "7.4", "6.5", "8.0"], ans: 1 },
-    { q: "DNA का पूरा नाम क्या है?", opts: ["Deoxyribonucleic Acid", "Dinucleic Acid", "Deoxyribose Acid", "Double Nucleic Acid"], ans: 0 },
-    { q: "निम्न में से कौन सा अंग पाचन तंत्र का भाग नहीं है?", opts: ["यकृत", "अग्न्याशय", "फेफड़ा", "आमाशय"], ans: 2 },
-  ],
+    "The Living World","Biological Classification","Plant Kingdom","Animal Kingdom",
+    "Morphology of Flowering Plants","Anatomy of Flowering Plants","Structural Organisation in Animals",
+    "Cell: The Unit of Life","Biomolecules","Cell Cycle and Cell Division",
+    "Transport in Plants","Mineral Nutrition","Photosynthesis in Higher Plants",
+    "Respiration in Plants","Plant Growth and Development","Digestion and Absorption",
+    "Breathing and Exchange of Gases","Body Fluids and Circulation","Excretory Products and their Elimination",
+    "Locomotion and Movement","Neural Control and Coordination","Chemical Coordination and Integration",
+    "Reproduction in Organisms","Sexual Reproduction in Flowering Plants","Human Reproduction",
+    "Reproductive Health","Principles of Inheritance and Variation","Molecular Basis of Inheritance",
+    "Evolution","Human Health and Disease","Strategies for Enhancement in Food Production",
+    "Microbes in Human Welfare","Biotechnology: Principles and Processes","Biotechnology and its Applications",
+    "Organisms and Populations","Ecosystem","Biodiversity and Conservation","Environmental Issues"
+  ]
 };
 
-// ============================================================
-// परीक्षा स्थिति
-// ============================================================
-let currentQuestions = [];
-let currentIndex = 0;
-let userAnswers = {};
-let timerInterval = null;
-let timeLeft = 0;
-let examType = '';
+/* ============================================================
+   QUESTION BANK — replace with your own questions
+   Format: { q:"...", opts:["A","B","C","D"], ans:index(0-3) }
+   ============================================================ */
+const questionBank = {
+  physics: [
+    {q:"What is the SI unit of electric current?",opts:["Volt","Ampere","Ohm","Watt"],ans:1},
+    {q:"Speed of light in vacuum is approximately:",opts:["3×10⁶ m/s","3×10⁸ m/s","3×10¹⁰ m/s","3×10⁵ m/s"],ans:1},
+    {q:"Which of the following is a scalar quantity?",opts:["Force","Velocity","Work","Acceleration"],ans:2},
+    {q:"Ohm's law is valid for:",opts:["Metallic conductors","Semiconductors","Electrolytes","Vacuum"],ans:0},
+    {q:"SI unit of power of a lens is:",opts:["Metre","Dioptre","Focus","Watt"],ans:1},
+    {q:"The dimensional formula of force is:",opts:["MLT⁻²","ML²T⁻²","MLT⁻¹","ML⁻¹T⁻²"],ans:0},
+    {q:"Which law explains action and reaction?",opts:["Newton's first law","Newton's second law","Newton's third law","Law of gravitation"],ans:2},
+    {q:"Unit of frequency is:",opts:["Hertz","Second","Metre","Joule"],ans:0},
+    {q:"The work done in moving a charge on an equipotential surface is:",opts:["Maximum","Minimum","Zero","Infinite"],ans:2},
+    {q:"A body in uniform circular motion has:",opts:["Constant velocity","Constant speed","Zero acceleration","Constant momentum"],ans:1}
+  ],
+  chemistry: [
+    {q:"Chemical formula of water is:",opts:["H₂O₂","H₂O","HO","H₃O"],ans:1},
+    {q:"Which of the following is a noble gas?",opts:["Oxygen","Nitrogen","Helium","Hydrogen"],ans:2},
+    {q:"A solution with pH less than 7 is:",opts:["Basic","Neutral","Acidic","Saline"],ans:2},
+    {q:"Horizontal rows in the periodic table are called:",opts:["Groups","Periods","Blocks","Series"],ans:1},
+    {q:"Symbol of sodium is:",opts:["So","Sd","Na","Nm"],ans:2},
+    {q:"Avogadro's number is approximately:",opts:["6.022×10²³","6.022×10²²","3.14×10²³","9.8×10²³"],ans:0},
+    {q:"The number of protons in an atom is called:",opts:["Mass number","Atomic number","Valency","Isotope number"],ans:1},
+    {q:"Which bond is formed by sharing of electrons?",opts:["Ionic","Covalent","Metallic","Hydrogen"],ans:1},
+    {q:"The lightest element is:",opts:["Helium","Hydrogen","Lithium","Carbon"],ans:1},
+    {q:"Oxidation means:",opts:["Gain of electrons","Loss of electrons","Gain of protons","Loss of neutrons"],ans:1}
+  ],
+  biology: [
+    {q:"Powerhouse of the cell is:",opts:["Ribosome","Mitochondria","Nucleus","Golgi body"],ans:1},
+    {q:"Photosynthesis occurs in:",opts:["Root","Stem","Leaf","Flower"],ans:2},
+    {q:"pH of human blood is about:",opts:["7.0","7.4","6.5","8.0"],ans:1},
+    {q:"DNA stands for:",opts:["Deoxyribonucleic Acid","Dinucleic Acid","Deoxyribose Acid","Double Nucleic Acid"],ans:0},
+    {q:"Which of the following is NOT part of the digestive system?",opts:["Liver","Pancreas","Lung","Stomach"],ans:2},
+    {q:"The basic unit of life is:",opts:["Tissue","Organ","Cell","Molecule"],ans:2},
+    {q:"Which organ pumps blood in the human body?",opts:["Lungs","Heart","Kidney","Liver"],ans:1},
+    {q:"The green pigment in plants is:",opts:["Carotene","Chlorophyll","Xanthophyll","Anthocyanin"],ans:1},
+    {q:"Human beings have how many chromosomes?",opts:["23","46","44","48"],ans:1},
+    {q:"Which vitamin is produced by the skin in sunlight?",opts:["Vitamin A","Vitamin B","Vitamin C","Vitamin D"],ans:3}
+  ]
+};
 
-const subjectNames = { physics: 'भौतिकी', chemistry: 'रसायन', biology: 'जीव विज्ञान', full: 'पूर्ण NEET मॉक' };
+/* ============================================================
+   STATE
+   ============================================================ */
+let currentQuestions=[], currentIndex=0, userAnswers={}, timerInterval=null, timeLeft=0, examType='';
+let activeSubject='physics';
+const subjectNames={physics:'Physics',chemistry:'Chemistry',biology:'Biology',full:'Full NEET Mock'};
 
-// ============================================================
-// परीक्षा प्रारंभ
-// ============================================================
-function startExam(type) {
-  examType = type;
-
-  if (type === 'full') {
-    // पूर्ण मॉक: वास्तविक NEET अनुपात के अनुसार प्रश्न संयोजित करें
-    // चूंकि डेमो डेटा में पर्याप्त प्रश्न नहीं हैं, इसलिए दोहराव के साथ भरें
-    // वास्तविक उपयोग में, आपको 90+45+45 प्रश्न तैयार करने होंगे
-    const bioPool = [...questions.biology, ...questions.biology, ...questions.biology]; // डेमो प्रतिस्थापन
-    const phyPool = [...questions.physics, ...questions.physics];
-    const chemPool = [...questions.chemistry, ...questions.chemistry];
-    currentQuestions = [...bioPool.slice(0, 10), ...phyPool.slice(0, 5), ...chemPool.slice(0, 5)]; // डेमो: 10+5+5
-    timeLeft = 60 * 60; // डेमो 1 घंटा; वास्तविक 3 घंटे = 180*60
-  } else {
-    currentQuestions = [...questions[type]];
-    timeLeft = 10 * 60; // अध्याय अभ्यास 10 मिनट
-  }
-
-  currentIndex = 0;
-  userAnswers = {};
-
-  document.getElementById('entryScreen').style.display = 'none';
-  document.getElementById('examScreen').style.display = 'block';
-  document.getElementById('resultScreen').style.display = 'none';
-  document.getElementById('examTitle').textContent = subjectNames[type];
-
-  renderPalette();
-  renderQuestion();
-  startTimer();
+/* ============================================================
+   CHAPTER LIST
+   ============================================================ */
+function switchSubject(subj){
+  activeSubject=subj;
+  document.querySelectorAll('.subj-tab').forEach(b=>b.classList.toggle('active',b.dataset.subj===subj));
+  renderChapterList();
+}
+function renderChapterList(){
+  const list=document.getElementById('chapList');
+  list.innerHTML='';
+  chapters[activeSubject].forEach((ch,i)=>{
+    const div=document.createElement('div');
+    div.className='chap-item';
+    div.innerHTML=`<span>${i+1}. ${ch}</span><span class="meta">10 min</span>`;
+    div.onclick=()=>startExam(activeSubject,ch);
+    list.appendChild(div);
+  });
 }
 
-// ============================================================
-// टाइमर
-// ============================================================
-function startTimer() {
-  if (timerInterval) clearInterval(timerInterval);
+/* ============================================================
+   START EXAM
+   ============================================================ */
+function startExam(type, chapterName){
+  examType=type;
+  if(type==='full'){
+    // Demo: 10 bio + 5 phy + 5 chem. Replace with 90+45+45 real questions.
+    currentQuestions=[
+      ...questionBank.biology.slice(0,10),
+      ...questionBank.physics.slice(0,5),
+      ...questionBank.chemistry.slice(0,5)
+    ];
+    timeLeft=180*60; // 3 hours
+  }else{
+    // Chapter test: use subject questions as demo (replace with chapter-specific bank)
+    const pool=questionBank[type]||[];
+    currentQuestions=pool.length?pool.slice(0,10):[];
+    timeLeft=10*60; // 10 min
+  }
+  if(!currentQuestions.length){alert('No questions available for this test yet.');return;}
+  currentIndex=0;userAnswers={};
+  document.getElementById('entryScreen').style.display='none';
+  document.getElementById('examScreen').style.display='block';
+  document.getElementById('resultScreen').style.display='none';
+  document.getElementById('examTitle').textContent=chapterName?`${subjectNames[type]} · ${chapterName}`:subjectNames[type];
+  renderPalette();renderQuestion();startTimer();
+}
+
+/* ============================================================
+   TIMER
+   ============================================================ */
+function startTimer(){
+  if(timerInterval)clearInterval(timerInterval);
   updateTimerDisplay();
-  timerInterval = setInterval(() => {
-    timeLeft--;
-    updateTimerDisplay();
-    if (timeLeft <= 0) {
-      clearInterval(timerInterval);
-      submitExam();
-    }
-  }, 1000);
+  timerInterval=setInterval(()=>{
+    timeLeft--;updateTimerDisplay();
+    if(timeLeft<=0){clearInterval(timerInterval);submitExam();}
+  },1000);
 }
-
-function updateTimerDisplay() {
-  const h = Math.floor(timeLeft / 3600);
-  const m = Math.floor((timeLeft % 3600) / 60);
-  const s = timeLeft % 60;
-  const box = document.getElementById('timerBox');
-  box.textContent = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-  box.classList.toggle('warning', timeLeft < 60);
-}
-
-// ============================================================
-// प्रश्न रेंडरिंग
-// ============================================================
-function renderQuestion() {
-  const q = currentQuestions[currentIndex];
-  document.getElementById('qCounter').textContent = `प्रश्न ${currentIndex + 1} / ${currentQuestions.length}`;
-  document.getElementById('qText').textContent = q.q;
-
-  const container = document.getElementById('optionsContainer');
-  container.innerHTML = '';
-  const letters = ['A', 'B', 'C', 'D'];
-
-  q.opts.forEach((opt, i) => {
-    const div = document.createElement('div');
-    div.className = 'option' + (userAnswers[currentIndex] === i ? ' selected' : '');
-    div.innerHTML = `<span class="opt-letter">${letters[i]}</span><span>${opt}</span>`;
-    div.onclick = () => selectOption(i);
-    container.appendChild(div);
-  });
-
-  updatePalette();
-}
-
-function selectOption(optIndex) {
-  userAnswers[currentIndex] = optIndex;
-  renderQuestion();
-}
-
-function nextQuestion() {
-  if (currentIndex < currentQuestions.length - 1) {
-    currentIndex++;
-    renderQuestion();
-  }
-}
-
-function prevQuestion() {
-  if (currentIndex > 0) {
-    currentIndex--;
-    renderQuestion();
-  }
-}
-
-// ============================================================
-// पैलेट
-// ============================================================
-function renderPalette() {
-  const grid = document.getElementById('paletteGrid');
-  grid.innerHTML = '';
-  currentQuestions.forEach((_, i) => {
-    const btn = document.createElement('button');
-    btn.className = 'p-btn';
-    btn.textContent = i + 1;
-    btn.onclick = () => { currentIndex = i; renderQuestion(); };
-    grid.appendChild(btn);
-  });
-}
-
-function updatePalette() {
-  const btns = document.querySelectorAll('.p-btn');
-  btns.forEach((btn, i) => {
-    btn.className = 'p-btn';
-    if (userAnswers[i] !== undefined) btn.classList.add('answered');
-    if (i === currentIndex) btn.classList.add('current');
-  });
-}
-
-// ============================================================
-// परीक्षा जमा करें और परिणाम
-// ============================================================
-function submitExam() {
-  clearInterval(timerInterval);
-
-  let correct = 0, wrong = 0, skipped = 0, score = 0;
-
-  currentQuestions.forEach((q, i) => {
-    if (userAnswers[i] === undefined) {
-      skipped++;
-    } else if (userAnswers[i] === q.ans) {
-      correct++;
-      score += 4;
-    } else {
-      wrong++;
-      score -= 1;
-    }
-  });
-
-  document.getElementById('examScreen').style.display = 'none';
-  document.getElementById('resultScreen').style.display = 'block';
-  document.getElementById('finalScore').textContent = score;
-  document.getElementById('correctCount').textContent = correct;
-  document.getElementById('wrongCount').textContent = wrong;
-  document.getElementById('skippedCount').textContent = skipped;
-  document.getElementById('resultTitle').textContent = `${subjectNames[examType]} - पूर्ण`;
-
-  // समीक्षा सूची बनाएं
-  const reviewList = document.getElementById('reviewList');
-  reviewList.innerHTML = '';
-  const letters = ['A', 'B', 'C', 'D'];
-
-  currentQuestions.forEach((q, i) => {
-    const userAns = userAnswers[i];
-    let status = 'skipped';
-    if (userAns !== undefined) {
-      status = userAns === q.ans ? 'correct' : 'wrong';
-    }
-    const div = document.createElement('div');
-    div.className = `review-item ${status}`;
-    const userText = userAns !== undefined ? `${letters[userAns]}. ${q.opts[userAns]}` : 'नहीं दिया';
-    const correctText = `${letters[q.ans]}. ${q.opts[q.ans]}`;
-    div.innerHTML = `
-      <div class="review-q">${i+1}. ${q.q}</div>
-      <div class="review-ans">आपका उत्तर: ${userText} ${status === 'wrong' ? '❌' : status === 'correct' ? '✅' : '⏭️'}</div>
-      ${status !== 'correct' ? `<div class="review-ans" style="color:#28a745;">सही उत्तर: ${correctText}</div>` : ''}
-    `;
-    reviewList.appendChild(div);
-  });
-}
-
-function toggleReview() {
-  const list = document.getElementById('reviewList');
-  list.style.display = list.style.display === 'none' ? 'block' : 'none';
-}
-</script>
-</body>
-</html>
+function updateTimerDisplay(){
+  const h=Math.floor(timeLeft/3600),m=Math.floor((
