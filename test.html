@@ -1,378 +1,117 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mock Test · NEET Saathi</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap">
-<style>
-  body{margin:0;background:#F1F2FB;font-family:'Plus Jakarta Sans',sans-serif;color:#1B1B3A;}
-  a{color:inherit;text-decoration:none}
-  .ct{max-width:1200px;margin:0 auto;padding:0 32px;box-sizing:border-box}
-  
-  /* Navbar */
-  .dk{background:radial-gradient(circle at 78% 35%,rgba(139,92,246,.55),transparent 45%),radial-gradient(circle at 8% 95%,rgba(34,211,238,.2),transparent 40%),#0B1030;color:#fff}
-  .btn{min-height:48px;padding:0 24px;border-radius:14px;border:0;font:700 15px 'Plus Jakarta Sans',sans-serif;background:linear-gradient(135deg,#4F46E5,#8B5CF6);color:#fff;box-shadow:0 8px 24px rgba(79,70,229,.4);cursor:pointer}
-  
-  /* Common Card */
-  .cd{background:#fff;border-radius:24px;padding:24px;box-shadow:0 10px 30px rgba(55,48,163,.12)}
-
-  /* --- ENTRY SCREEN --- */
-  .mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:24px}
-  @media(max-width:760px){.mode-grid{grid-template-columns:1fr}}
-  .subj-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
-  .subj-tab{flex:1 1 auto;min-height:44px;padding:0 16px;border-radius:12px;border:1.5px solid #e0e0e0;background:#fafafa;font:700 14px 'Plus Jakarta Sans';cursor:pointer;transition:.15s}
-  .subj-tab.active{background:#4F46E5;color:#fff;border-color:#4F46E5}
-  .chap-list{display:flex;flex-direction:column;gap:8px;max-height:320px;overflow-y:auto;padding-right:4px}
-  .chap-item{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-radius:12px;background:#fafafa;border:1px solid #eee;cursor:pointer;font:600 14px 'Plus Jakarta Sans';transition:.15s}
-  .chap-item:hover{background:#eef0ff;border-color:#4F46E5}
-  .chap-item .meta{font-size:12px;color:#5F6384;font-weight:600}
-
-  /* --- INSTRUCTIONS SCREEN --- */
-  #instructionScreen { display: none; }
-  .inst-box { background: #fff; border-radius: 16px; padding: 30px; box-shadow: 0 4px 14px rgba(0,0,0,0.05); max-width: 800px; margin: 0 auto; }
-  .inst-box h2 { margin-top: 0; color: #1B1B3A; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-  .inst-box ul { line-height: 1.8; color: #444; font-size: 15px; padding-left: 20px; }
-  .inst-box li { margin-bottom: 8px; }
-  .legend-box { display: flex; gap: 20px; margin: 20px 0; flex-wrap: wrap; font-size: 14px; }
-  .legend-item { display: flex; align-items: center; gap: 8px; }
-  .leg-box { width: 24px; height: 24px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 12px; color: #fff; }
-  .leg-white { background: #fff; border: 1px solid #ccc; color: #333; }
-  .leg-red { background: #e74c3c; }
-  .leg-green { background: #27ae60; }
-  .leg-purple { background: #8e44ad; }
-
-  /* --- EXAM SCREEN --- */
-  #examScreen { display: none; }
-  .exam-header { background: #fff; padding: 12px 24px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #ddd; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 20px; border-radius: 12px; }
-  .candidate-info { display: flex; align-items: center; gap: 15px; }
-  .avatar { width: 50px; height: 50px; background: #e0e0e0; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 20px; color: #555; }
-  .cand-details { font-size: 13px; line-height: 1.4; color: #444; }
-  .cand-details b { color: #1B1B3A; }
-  .timer-box { background: #1B1B3A; color: #fff; padding: 10px 20px; border-radius: 8px; font-weight: 700; font-size: 18px; font-variant-numeric: tabular-nums; }
-  .timer-box.warning { background: #e74c3c; animation: pulse 1s infinite; }
-  @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.8; } 100% { opacity: 1; } }
-
-  .exam-body { display: grid; grid-template-columns: 320px 1fr; gap: 20px; align-items: start; }
-  @media(max-width: 900px) { .exam-body { grid-template-columns: 1fr; } .palette-panel { order: -1; } }
-
-  /* Palette (Left Side) */
-  .palette-panel { background: #fff; border-radius: 12px; border: 1px solid #ddd; padding: 16px; }
-  .palette-header { text-align: center; font-weight: 700; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px; color: #333; }
-  .palette-legend { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 12px; margin-bottom: 15px; }
-  .pleg-item { display: flex; align-items: center; gap: 6px; }
-  .pleg-box { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 4px; font-weight: bold; color: #fff; font-size: 12px; }
-  .bg-white { background: #f4f4f4; border: 1px solid #ccc; color: #333; }
-  .bg-red { background: #e74c3c; }
-  .bg-green { background: #27ae60; }
-  .bg-purple { background: #8e44ad; }
-
-  .palette-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
-  .p-btn { width: 100%; aspect-ratio: 1; border-radius: 6px; border: 1px solid #ccc; background: #f4f4f4; font-weight: 700; font-size: 14px; color: #333; cursor: pointer; transition: 0.1s; }
-  .p-btn.answered { background: #27ae60; color: #fff; border-color: #27ae60; }
-  .p-btn.not-answered { background: #e74c3c; color: #fff; border-color: #e74c3c; }
-  .p-btn.marked { background: #8e44ad; color: #fff; border-color: #8e44ad; }
-  .p-btn.current { border: 2.5px solid #1B1B3A; box-shadow: 0 0 5px rgba(0,0,0,0.3); }
-
-  /* Question Area */
-  .question-panel { background: #fff; border-radius: 12px; border: 1px solid #ddd; padding: 24px; min-height: 400px; display: flex; flex-direction: column; }
-  .q-header { display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding-bottom: 12px; margin-bottom: 20px; font-weight: 700; color: #4F46E5; font-size: 16px; }
-  .q-text { font-size: 16px; line-height: 1.6; margin-bottom: 24px; color: #222; font-weight: 600; }
-  
-  .options { display: flex; flex-direction: column; gap: 12px; margin-bottom: 30px; }
-  .option { padding: 12px 16px; border: 1px solid #ddd; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 12px; font-size: 15px; transition: 0.1s; }
-  .option:hover { background: #f8f9fa; }
-  .option.selected { background: #eef0ff; border-color: #4F46E5; }
-  .opt-radio { width: 20px; height: 20px; border-radius: 50%; border: 2px solid #aaa; display: flex; align-items: center; justify-content: center; }
-  .option.selected .opt-radio { border-color: #4F46E5; }
-  .option.selected .opt-radio::after { content: ''; width: 10px; height: 10px; background: #4F46E5; border-radius: 50%; }
-
-  /* NTA Style Buttons */
-  .action-btns { display: flex; gap: 10px; flex-wrap: wrap; margin-top: auto; border-top: 1px solid #eee; padding-top: 20px; }
-  .btn-nta { padding: 10px 20px; border-radius: 6px; border: none; font-weight: 600; font-size: 14px; cursor: pointer; color: #fff; }
-  .btn-save-next { background: #27ae60; }
-  .btn-clear { background: #95a5a6; }
-  .btn-mark { background: #8e44ad; }
-  .btn-prev { background: #3498db; }
-  .btn-submit { background: #e74c3c; margin-left: auto; }
-
-  /* Result Screen */
-  #resultScreen { display: none; }
-  .result-card { text-align: center; padding: 40px; }
-  .stat-row { display: flex; justify-content: center; gap: 30px; margin: 20px 0; }
-  .stat-item { background: #fafafa; padding: 15px 25px; border-radius: 12px; border: 1px solid #eee; }
-  .stat-item .val { font-size: 24px; font-weight: 800; }
-  .stat-item .lbl { font-size: 13px; color: #666; font-weight: 600; }
-  .val.correct { color: #27ae60; } .val.wrong { color: #e74c3c; } .val.skipped { color: #999; }
-</style>
-</head>
+<html lang="hi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Mock Test - NEET Saathi</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap"><style>
+body{margin:0}a{color:inherit;text-decoration:none}
+.w{font-family:'Plus Jakarta Sans',sans-serif;color:#1B1B3A;background:#F1F2FB}
+.dk{background:radial-gradient(circle at 78% 35%,rgba(139,92,246,.55),transparent 45%),radial-gradient(circle at 8% 95%,rgba(34,211,238,.2),transparent 40%),#0B1030;color:#fff}
+.ct{max-width:1200px;margin:0 auto;padding:0 32px;box-sizing:border-box}
+.btn{min-height:48px;padding:0 24px;border-radius:14px;border:0;font:700 15px 'Plus Jakarta Sans',sans-serif;background:linear-gradient(135deg,#4F46E5,#8B5CF6);color:#fff;box-shadow:0 8px 24px rgba(79,70,229,.4)}
+.gh{background:rgba(255,255,255,.1);box-shadow:none;border:1px solid rgba(255,255,255,.35)}
+.cd{background:#fff;border-radius:24px;padding:24px;box-shadow:0 10px 30px rgba(55,48,163,.12)}
+.ch{display:inline-block;border-radius:20px;padding:4px 12px;font:700 12px 'Plus Jakarta Sans',sans-serif}.pc{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font:700 14px 'Plus Jakarta Sans'}</style><style>
+.nav a{margin-right:14px;font:700 14px 'Plus Jakarta Sans',sans-serif;color:#fff;opacity:.9}
+.opt{display:flex;align-items:center;gap:14px;min-height:54px;padding:0 16px;border-radius:16px;background:#fff;box-shadow:0 4px 12px rgba(55,48,163,.08);font:700 16px 'Plus Jakarta Sans',sans-serif;cursor:pointer;border:2px solid transparent}
+.opt.on{background:#EEF0FF;border-color:#4F46E5;color:#4F46E5}
+.pc{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font:700 14px 'Plus Jakarta Sans',sans-serif;border:0;background:#E6E8F6;color:#1B1B3A}
+.pc.ans{background:#22A66E;color:#fff}.pc.nan{background:#B4540A;color:#fff}.pc.mk{background:#8B5CF6;color:#fff}.pc.cur{box-shadow:0 0 0 3px #fff,0 0 0 5px #4F46E5}
+.g2{display:flex;gap:10px;flex-wrap:wrap}
+select{min-height:48px;border-radius:14px;border:2px solid #E6E8F6;padding:0 14px;font:600 15px 'Plus Jakarta Sans',sans-serif;background:#fff;color:#1B1B3A}
+.qi{width:100%;display:block;border-radius:12px;background:#fff}
+</style></head>
 <body>
-<div class="w">
-
-  <!-- HEADER (Your Site Style) -->
-  <div class="dk">
-    <div class="ct">
-      <nav style="display:flex;align-items:center;gap:28px;padding:22px 0;flex-wrap:wrap">
-        <a href="index.html" style="flex:1"><b style="font:800 22px 'Plus Jakarta Sans'">NEET Saathi</b></a>
-        <a href="teacher.html">AI Teacher</a>
-        <a href="test.html" style="color:#7DE8F8">Mock Test</a>
-        <a href="galti.html">Galti Notebook</a>
-        <a href="weak.html">Progress</a>
-        <a href="plan.html">Daily Plan</a>
-      </nav>
-    </div>
-  </div>
-
-  <div class="ct" style="padding-top:40px;padding-bottom:72px">
-
-    <!-- 1. ENTRY SCREEN -->
-    <div id="entryScreen">
-      <h1 style="margin:0 0 8px;font:800 34px 'Plus Jakarta Sans'">Mock Test</h1>
-      <p style="margin:0 0 8px;color:#5F6384;font:600 15px 'Plus Jakarta Sans'">Choose chapter-wise revision or a full NEET simulation.</p>
-
-      <div class="mode-grid">
-        <!-- Chapter-wise -->
-        <div class="cd">
-          <h2 style="margin:0 0 6px;font:800 20px 'Plus Jakarta Sans'">Chapter-wise Revision</h2>
-          <p style="margin:0 0 18px;color:#5F6384;font:600 13px 'Plus Jakarta Sans'">Pick a subject, then a chapter. (10 mins)</p>
-          <div class="subj-tabs">
-            <button class="subj-tab active" data-subj="physics" onclick="switchSubject('physics')">Physics</button>
-            <button class="subj-tab" data-subj="chemistry" onclick="switchSubject('chemistry')">Chemistry</button>
-            <button class="subj-tab" data-subj="biology" onclick="switchSubject('biology')">Biology</button>
-          </div>
-          <div class="chap-list" id="chapList"></div>
-        </div>
-
-        <!-- Full Mock -->
-        <div class="cd">
-          <h2 style="margin:0 0 6px;font:800 20px 'Plus Jakarta Sans'">Full NEET Mock</h2>
-          <p style="margin:0 0 18px;color:#5F6384;font:600 13px 'Plus Jakarta Sans'">180 questions · 180 minutes · +4 / -1</p>
-          <div style="background:#fafafa;border:1px solid #eee;border-radius:14px;padding:16px;margin-bottom:18px;font:600 13px/1.9 'Plus Jakarta Sans';color:#5F6384">
-            Biology: 90 questions<br>
-            Physics: 45 questions<br>
-            Chemistry: 45 questions
-          </div>
-          <button class="btn" style="width:100%" onclick="showInstructions('full')">Start Full Mock</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- 2. INSTRUCTION SCREEN (Only for Full Mock) -->
-    <div id="instructionScreen">
-      <div class="inst-box">
-        <h2>General Instructions (Full Mock)</h2>
-        <p>Please read the instructions carefully before starting the test:</p>
-        <ul>
-          <li>Total duration of this test is 180 minutes.</li>
-          <li>The Questions Palette on the left side will show the status of each question.</li>
-          <li>Click on <b>Save & Next</b> to save your answer and move forward.</li>
-          <li>Click on <b>Mark for Review & Next</b> to flag a question for later.</li>
-          <li>Click on <b>Clear</b> to deselect your answer.</li>
-        </ul>
-        
-        <h3>Question Palette Symbols:</h3>
-        <div class="legend-box">
-          <div class="legend-item"><div class="leg-box leg-white">1</div> Not Visited</div>
-          <div class="legend-item"><div class="leg-box leg-red">2</div> Not Answered</div>
-          <div class="legend-item"><div class="leg-box leg-green">3</div> Answered</div>
-          <div class="legend-item"><div class="leg-box leg-purple">4</div> Marked for Review</div>
-        </div>
-
-        <div style="margin-top: 30px; text-align: center;">
-          <button class="btn btn-save-next" style="padding: 15px 40px; font-size: 16px;" onclick="startTest('full')">PROCEED TO TEST</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- 3. EXAM SCREEN -->
-    <div id="examScreen">
-      <!-- Header -->
-      <div class="exam-header">
-        <div class="candidate-info">
-          <div class="avatar">NS</div>
-          <div class="cand-details">
-            <b>Candidate:</b> NEET Saathi Student<br>
-            <b>Subject:</b> <span id="examTitle">Test</span>
-          </div>
-        </div>
-        <div>
-          <div style="font-size: 12px; text-align: center; color: #666; margin-bottom: 4px;">Time Left</div>
-          <div class="timer-box" id="timerBox">00:00:00</div>
-        </div>
-      </div>
-
-      <!-- Body -->
-      <div class="exam-body">
-        
-        <!-- Left Palette -->
-        <div class="palette-panel" id="palettePanel">
-          <div class="palette-header">Question Palette</div>
-          <div class="palette-legend">
-            <div class="pleg-item"><div class="pleg-box bg-white">1</div> Not Visited</div>
-            <div class="pleg-item"><div class="pleg-box bg-red">2</div> Not Answered</div>
-            <div class="pleg-item"><div class="pleg-box bg-green">3</div> Answered</div>
-            <div class="pleg-item"><div class="pleg-box bg-purple">4</div> Marked</div>
-          </div>
-          <div class="palette-grid" id="paletteGrid"></div>
-        </div>
-
-        <!-- Right Question Panel -->
-        <div class="question-panel">
-          <div class="q-header">
-            <span id="qCounter">Question 1</span>
-            <span style="color:#27ae60">Marks: +4 / -1</span>
-          </div>
-          <div class="q-text" id="qText">Loading question...</div>
-          <div class="options" id="optionsContainer"></div>
-
-          <!-- Action Buttons -->
-          <div class="action-btns">
-            <!-- Simple mode buttons (for chapter test) -->
-            <div id="simpleBtns" style="display:none; width:100%; gap:10px;">
-              <button class="btn-nta btn-prev" onclick="prevQuestion()">PREVIOUS</button>
-              <button class="btn-nta btn-save-next" onclick="nextQuestion()">NEXT</button>
-              <button class="btn-nta btn-submit" style="margin-left:auto" onclick="submitTest()">SUBMIT</button>
-            </div>
-
-            <!-- NTA mode buttons (for full mock) -->
-            <div id="ntaBtns" style="display:flex; width:100%; gap:10px;">
-              <button class="btn-nta btn-mark" onclick="markForReview()">MARK FOR REVIEW & NEXT</button>
-              <button class="btn-nta btn-clear" onclick="clearResponse()">CLEAR</button>
-              <button class="btn-nta btn-save-next" onclick="saveAndNext()">SAVE & NEXT</button>
-              <button class="btn-nta btn-submit" onclick="submitTest()">SUBMIT</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 4. RESULT SCREEN -->
-    <div id="resultScreen">
-      <div class="cd result-card">
-        <h2 style="font:800 28px 'Plus Jakarta Sans'; margin-bottom:10px;">Exam Submitted Successfully</h2>
-        <p style="color:#666">Your score card is generated.</p>
-        <div class="stat-row">
-          <div class="stat-item"><div class="val correct" id="correctCount">0</div><div class="lbl">Correct</div></div>
-          <div class="stat-item"><div class="val wrong" id="wrongCount">0</div><div class="lbl">Incorrect</div></div>
-          <div class="stat-item"><div class="val skipped" id="skippedCount">0</div><div class="lbl">Not Attempted</div></div>
-          <div class="stat-item" style="background:#1B1B3A; color:#fff;"><div class="val" id="finalScore" style="color:#fff">0</div><div class="lbl" style="color:#ccc">Total Score</div></div>
-        </div>
-        <button class="btn" onclick="location.reload()" style="margin-top:20px;">Back to Home</button>
-      </div>
-    </div>
-
-  </div>
+<div class="w" style="min-height:900px">
+<div class="dk" style="padding:14px 0"><div class="ct" style="display:flex;align-items:center;gap:14px;flex-wrap:wrap"><a href="index.html" style="flex:1 1 200px"><b style="font:800 20px 'Plus Jakarta Sans'">NEET Saathi · CBT Mock Test</b></a><div class="nav"><a href="teacher.html">AI Teacher</a><a href="galti.html">Galti Notebook</a><a href="weak.html">Progress</a><a href="plan.html">Daily Plan</a></div><div id="timer" style="display:none;background:#fff;color:#4F46E5;border-radius:14px;padding:6px 16px;font:800 22px 'Plus Jakarta Sans'">00:00:00</div></div></div>
+<div class="ct" style="padding-top:22px;padding-bottom:40px">
+<div id="start" class="cd" style="max-width:640px;display:flex;flex-direction:column;gap:14px">
+<h2 style="margin:0;font:800 24px 'Plus Jakarta Sans'">Test shuru karein</h2>
+<div class="g2"><button id="m1" class="btn">Poora Mock Test</button><button id="m2" class="btn" style="background:#fff;color:#4F46E5;box-shadow:inset 0 0 0 2px #4F46E5">Chapter-wise Test</button></div>
+<div style="color:#5F6384;font-size:14px;line-height:1.5">Asli NEET paper ke questions. Sahi jawab par +4, galat par -1. Galat questions apne aap Galti Notebook me save ho jaate hain.</div>
+<div id="p1" style="display:flex;flex-direction:column;gap:14px">
+<label style="font-weight:700;font-size:14px">Kaunsa paper?</label>
+<select id="paper"><option value="2025">NEET 2025</option><option value="2019">NEET 2019</option><option value="2018">NEET 2018</option></select>
+<label style="font-weight:700;font-size:14px">Kitna?</label>
+<select id="scope"><option value="all">Poora paper (180 questions, 3 ghante)</option><option value="Physics">Sirf Physics (45 questions, 45 minute)</option><option value="Chemistry">Sirf Chemistry (45 questions, 45 minute)</option><option value="Botany">Sirf Botany (45 questions, 45 minute)</option><option value="Zoology">Sirf Zoology (45 questions, 45 minute)</option></select>
+<div><button id="go" class="btn">Test shuru karein</button></div>
 </div>
-
+<div id="p2" style="display:none;flex-direction:column;gap:12px">
+<div style="font-weight:700;font-size:14px">Subject chunein</div>
+<div id="subbtn" class="g2"></div>
+<div id="chlist" style="display:flex;flex-direction:column;gap:8px"></div>
+<div style="color:#5F6384;font-size:13px;line-height:1.5">Har chapter test me 10 minute milte hain aur zyada se zyada 10 questions aate hain. Agar chapter me 10 se kam questions hain, to har question ke liye 1 minute milta hai.</div>
+</div>
+<div id="smsg" style="font-size:14px;color:#B4540A;min-height:18px"></div>
+</div>
+<div id="test" style="display:none;flex-wrap:wrap;gap:22px;align-items:flex-start">
+<div style="flex:1 1 560px;display:flex;flex-direction:column;gap:14px;min-width:0">
+<div id="subs" class="g2"></div>
+<div class="cd" style="display:flex;flex-direction:column;gap:12px;padding:16px"><div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><b id="qno" style="font-size:15px;flex:1"></b><span id="qsub" class="ch" style="background:#EEF0FF;color:#4F46E5"></span><span class="ch" style="background:#E3F6EC;color:#17603F">+4 / -1</span></div><img id="qimg" class="qi" alt="Question"></div>
+<div id="opts" style="display:flex;flex-direction:column;gap:10px"></div>
+<div class="g2"><button id="prev" class="btn" style="min-height:44px;padding:0 18px;background:#fff;color:#4F46E5;box-shadow:inset 0 0 0 2px #4F46E5">Previous</button><button id="mark" class="btn" style="min-height:44px;padding:0 18px;background:#fff;color:#4F46E5;box-shadow:inset 0 0 0 2px #4F46E5">Mark for Review</button><button id="clr" class="btn" style="min-height:44px;padding:0 18px;background:#fff;color:#4F46E5;box-shadow:inset 0 0 0 2px #4F46E5">Clear Answer</button><button id="next" class="btn" style="min-height:44px">Save &amp; Next</button></div>
+</div>
+<aside style="flex:0 0 330px;max-width:100%;display:flex;flex-direction:column;gap:14px"><div class="cd" style="padding:16px"><b style="font-size:16px">Question Palette</b><div id="pal" style="display:flex;flex-wrap:wrap;gap:8px;margin:12px 0"></div><div style="display:flex;flex-wrap:wrap;gap:8px 14px;font-size:12px"><span><i style="display:inline-block;width:12px;height:12px;border-radius:4px;background:#22A66E"></i> Answered</span><span><i style="display:inline-block;width:12px;height:12px;border-radius:4px;background:#8B5CF6"></i> Marked</span><span><i style="display:inline-block;width:12px;height:12px;border-radius:4px;background:#B4540A"></i> Not answered</span><span><i style="display:inline-block;width:12px;height:12px;border-radius:4px;background:#E6E8F6"></i> Not visited</span></div></div><button id="submit" class="btn" style="min-height:52px;background:linear-gradient(135deg,#B4540A,#E0801F)">Submit Test</button></aside>
+</div>
+<div id="result" style="display:none;flex-direction:column;gap:18px;max-width:760px"></div>
+</div></div>
 <script>
-/* ============================================================
-   DATA (Replace with real questions later)
-   ============================================================ */
-const chapters = {
-  physics: ["Units and Measurements","Motion in a Straight Line","Laws of Motion","Work Energy and Power","Thermodynamics","Current Electricity"],
-  chemistry: ["Some Basic Concepts","Structure of Atom","Chemical Bonding","Equilibrium","Electrochemistry","Organic Chemistry"],
-  biology: ["The Living World","Biological Classification","Plant Kingdom","Cell: The Unit of Life","Human Reproduction","Genetics"]
+var FILES={"2018":["neet2018.json"],"2019":["neet2019.json"],"2025":["neet2025a.json","neet2025b.json"]};
+var GKEY="neetsathi_galti_v1";
+var GAP=[1,3,7,15];
+var DAY=86400000;
+var S={qs:[],ans:[],vis:[],mk:[],cur:0,left:0,tid:null,paper:"",title:"",done:false};
+function el(i){return document.getElementById(i);}
+function E(tag,css,text){var n=document.createElement(tag);if(css){n.style.cssText=css;}if(text!==undefined&&text!==null){n.textContent=String(text);}return n;}
+function fmt(t){var h=Math.floor(t/3600),m=Math.floor(t%3600/60),s=t%60;return (h<10?"0":"")+h+":"+(m<10?"0":"")+m+":"+(s<10?"0":"")+s;}
+var CHI={"Physics":[["Units and Measurements",[["2018",37],["2019",62],["2025",25],["2025",42]]],["Motion in a Straight Line",[["2025",10],["2025",15],["2025",21]]],["Motion in a Plane",[["2019",52],["2019",53],["2019",74],["2025",7]]],["Laws of Motion",[["2018",33],["2018",35],["2019",50],["2019",84],["2019",88],["2025",4]]],["Work, Energy and Power",[["2018",30],["2018",32],["2019",51],["2019",71],["2025",5]]],["System of Particles and Rotational Motion",[["2018",31],["2018",36],["2018",38],["2018",41],["2019",61],["2019",65],["2025",22],["2025",30],["2025",39]]],["Gravitation",[["2018",39],["2018",40],["2019",63],["2019",89],["2025",17],["2025",31],["2025",32]]],["Mechanical Properties of Solids",[["2018",44],["2019",60]]],["Mechanical Properties of Fluids",[["2018",42],["2019",57],["2019",85],["2025",1],["2025",24]]],["Thermal Properties of Matter",[["2018",43],["2019",58],["2019",59],["2025",19]]],["Thermodynamics",[["2018",1],["2018",4],["2018",45],["2019",46],["2025",41]]],["Kinetic Theory",[["2018",3],["2019",47],["2025",14],["2025",29]]],["Oscillations",[["2018",25],["2019",54],["2019",56],["2019",66],["2025",23],["2025",44]]],["Waves",[["2018",2],["2018",24],["2025",45]]],["Electric Charges and Fields",[["2018",22],["2018",34],["2019",67],["2019",77],["2019",86],["2025",28],["2025",35]]],["Electrostatic Potential and Capacitance",[["2018",23],["2025",20]]],["Current Electricity",[["2018",5],["2018",6],["2018",7],["2019",69],["2019",79],["2019",81],["2025",6],["2025",11],["2025",33],["2025",36]]],["Moving Charges and Magnetism",[["2018",26],["2018",29],["2019",73],["2019",87],["2025",3],["2025",12],["2025",18]]],["Magnetism and Matter",[["2018",27],["2019",70]]],["Electromagnetic Induction",[["2018",21],["2019",55],["2019",68]]],["Alternating Current",[["2018",28],["2025",16]]],["Electromagnetic Waves",[["2018",18],["2019",80],["2025",9],["2025",26]]],["Ray Optics",[["2018",10],["2018",19],["2018",20],["2019",72],["2019",75],["2019",76],["2025",2],["2025",13]]],["Wave Optics",[["2018",8],["2018",9],["2019",64],["2019",90],["2025",27],["2025",43]]],["Dual Nature of Radiation and Matter",[["2018",12],["2018",14],["2019",83],["2025",37],["2025",38]]],["Atoms",[["2018",11],["2019",48],["2025",34]]],["Nuclei",[["2018",13],["2019",82]]],["Semiconductor Electronics",[["2018",15],["2018",16],["2018",17],["2019",49],["2019",78],["2025",8],["2025",40]]]],"Chemistry":[["Some Basic Concepts of Chemistry",[["2018",78],["2019",4],["2025",54],["2025",68]]],["Structure of Atom",[["2018",90],["2019",25],["2019",33],["2025",46],["2025",50]]],["Classification of Elements and Periodicity",[["2018",49],["2019",22],["2025",53]]],["Chemical Bonding and Molecular Structure",[["2018",51],["2018",63],["2018",87],["2018",88],["2019",8],["2019",9],["2019",24],["2025",62],["2025",64],["2025",87]]],["Thermodynamics",[["2018",85],["2019",1],["2019",36],["2025",65],["2025",85]]],["Equilibrium",[["2018",74],["2018",77],["2018",83],["2019",3],["2019",14],["2019",15],["2025",59],["2025",73],["2025",88]]],["Redox Reactions",[["2018",46],["2018",81],["2018",82],["2019",10],["2025",55]]],["States of Matter",[["2018",76],["2018",86],["2019",40]]],["Organic Chemistry: Basic Principles",[["2018",64],["2018",65],["2025",58],["2025",70],["2025",72],["2025",75],["2025",76],["2025",86],["2025",90]]],["Hydrocarbons",[["2018",61],["2018",62],["2019",17],["2019",30],["2019",41],["2025",60]]],["Solutions",[["2019",5],["2019",34],["2025",66],["2025",79],["2025",81]]],["Electrochemistry",[["2019",6],["2019",35],["2025",61]]],["Chemical Kinetics",[["2018",79],["2018",84],["2019",23],["2019",43],["2025",56],["2025",89]]],["d and f Block Elements",[["2018",69],["2018",70],["2019",21]]],["Coordination Compounds",[["2018",71],["2018",72],["2018",73],["2019",44],["2025",51],["2025",57],["2025",63]]],["Haloalkanes and Haloarenes",[["2025",84]]],["Alcohols, Phenols and Ethers",[["2018",52],["2018",60],["2018",66],["2019",16],["2019",20],["2025",77]]],["Aldehydes, Ketones and Carboxylic Acids",[["2018",57],["2018",67],["2018",68],["2019",42],["2025",78],["2025",83]]],["Amines",[["2018",55],["2019",12],["2025",49],["2025",67],["2025",74]]],["Biomolecules",[["2018",53],["2018",56],["2019",39],["2025",69],["2025",82]]],["Solid State",[["2018",89],["2019",2],["2025",71]]],["Surface Chemistry",[["2018",75],["2019",13],["2025",80]]],["p-Block Elements",[["2018",47],["2018",50],["2018",59],["2019",18],["2019",27],["2019",28],["2019",29],["2019",37],["2019",38],["2025",47],["2025",52]]],["s-Block Elements",[["2018",58],["2019",19],["2019",31]]],["Hydrogen",[["2018",80],["2019",45]]],["General Principles of Metallurgy",[["2018",48],["2019",32]]],["Environmental Chemistry",[["2019",7]]],["Polymers",[["2018",54],["2019",26]]],["Chemistry in Everyday Life",[["2019",11]]],["Practical Chemistry",[["2025",48]]]],"Biology":[["The Living World",[["2018",133],["2019",180],["2025",95]]],["Biological Classification",[["2018",118],["2018",131],["2018",132],["2018",147],["2018",152],["2019",91],["2019",131],["2019",145],["2019",164],["2025",132]]],["Plant Kingdom",[["2018",130],["2018",135],["2019",141],["2025",111],["2025",119],["2025",159],["2025",162],["2025",168]]],["Animal Kingdom",[["2018",148],["2018",150],["2018",151],["2019",109],["2019",128],["2025",109],["2025",139],["2025",166]]],["Morphology of Flowering Plants",[["2018",126],["2018",129],["2019",132],["2025",104],["2025",155]]],["Anatomy of Flowering Plants",[["2018",124],["2018",125],["2018",127],["2018",128],["2019",148],["2019",160],["2019",168],["2025",118]]],["Structural Organisation in Animals",[["2018",149],["2019",167],["2019",171],["2025",107],["2025",169],["2025",175]]],["Cell: The Unit of Life",[["2018",119],["2018",121],["2018",171],["2018",173],["2019",110],["2019",113],["2019",123],["2019",124],["2019",177],["2025",98],["2025",121],["2025",128],["2025",140]]],["Biomolecules",[["2018",117],["2019",143],["2019",157],["2025",117],["2025",131],["2025",137],["2025",149]]],["Cell Cycle and Cell Division",[["2018",123],["2019",138],["2019",163],["2025",158]]],["Transport in Plants",[["2018",122],["2019",115],["2019",126]]],["Mineral Nutrition",[["2018",95],["2018",97],["2019",139],["2025",113]]],["Photosynthesis in Higher Plants",[["2018",91],["2018",120],["2025",122],["2025",171]]],["Respiration in Plants",[["2018",96],["2018",170],["2019",135],["2019",154],["2025",91]]],["Plant Growth and Development",[["2019",111],["2019",161],["2025",108],["2025",173]]],["Digestion and Absorption",[["2018",165],["2018",172],["2019",94],["2019",149]]],["Breathing and Exchange of Gases",[["2018",136],["2018",138],["2018",167],["2019",158],["2019",175],["2025",101]]],["Body Fluids and Circulation",[["2018",137],["2018",166],["2019",165],["2019",178],["2025",94],["2025",112]]],["Excretory Products and Their Elimination",[["2018",163],["2018",164],["2019",121],["2019",125],["2025",125],["2025",148]]],["Locomotion and Movement",[["2018",168],["2019",127],["2019",142],["2025",142]]],["Neural Control and Coordination",[["2018",139],["2018",142],["2018",169],["2019",112],["2019",155]]],["Chemical Coordination and Integration",[["2018",140],["2018",141],["2019",93],["2019",150],["2019",174],["2025",160],["2025",161],["2025",165],["2025",178]]],["Sexual Reproduction in Flowering Plants",[["2018",92],["2018",93],["2018",94],["2018",107],["2018",108],["2018",110],["2018",134],["2019",118],["2019",159],["2019",162],["2019",169],["2025",102],["2025",124],["2025",127],["2025",141],["2025",153],["2025",154],["2025",157]]],["Human Reproduction",[["2018",143],["2018",144],["2018",145],["2018",162],["2019",105],["2019",107],["2019",144],["2025",110],["2025",123],["2025",138],["2025",147],["2025",176]]],["Reproductive Health",[["2018",146],["2019",102],["2019",119],["2019",151],["2025",93]]],["Principles of Inheritance and Variation",[["2018",102],["2018",104],["2018",105],["2018",159],["2018",180],["2019",101],["2019",114],["2019",129],["2019",136],["2019",137],["2025",130],["2025",145],["2025",152]]],["Molecular Basis of Inheritance",[["2018",106],["2018",109],["2018",158],["2018",161],["2018",174],["2019",92],["2019",98],["2019",104],["2019",122],["2019",170],["2025",96],["2025",106],["2025",114],["2025",129],["2025",134],["2025",146],["2025",163],["2025",174]]],["Evolution",[["2018",160],["2018",177],["2018",179],["2019",108],["2019",134],["2019",153],["2019",172],["2025",151]]],["Human Health and Disease",[["2018",157],["2018",175],["2018",176],["2019",120],["2019",152],["2019",173],["2025",120],["2025",135],["2025",143],["2025",156],["2025",167]]],["Microbes in Human Welfare",[["2018",178],["2019",95],["2019",100],["2019",103],["2019",176],["2019",179],["2025",103],["2025",105],["2025",177]]],["Biotechnology: Principles and Processes",[["2018",101],["2019",130],["2019",147],["2025",92],["2025",115],["2025",126],["2025",136],["2025",172],["2025",179]]],["Biotechnology and Its Applications",[["2018",98],["2018",99],["2018",100],["2018",103],["2019",96],["2019",166],["2025",116],["2025",144]]],["Organisms and Populations",[["2018",111],["2018",114],["2018",153],["2018",156],["2025",97],["2025",133],["2025",180]]],["Ecosystem",[["2018",115],["2019",156],["2025",100],["2025",150],["2025",170]]],["Biodiversity and Conservation",[["2018",154],["2019",97],["2019",133],["2025",99],["2025",164]]],["Environmental Issues",[["2018",112],["2018",113],["2018",116],["2018",155],["2019",99],["2019",116],["2019",117],["2019",140],["2019",146]]],["Strategies for Enhancement in Food Production",[["2019",106]]]]};
+var PC={};
+function loadPaper(y){
+  if(PC[y]){return PC[y];}
+  var fs=FILES[y];
+  PC[y]=Promise.all(fs.map(function(f){return fetch(f).then(function(r){if(!r.ok){throw new Error(f);}return r.json();});})).then(function(arr){
+    var qs=[];arr.forEach(function(d){qs=qs.concat(d.questions);});
+    qs.forEach(function(q){q.p=y;});
+    qs.sort(function(a,b){return a.n-b.n;});
+    return {title:arr[0].title,qs:qs};
+  }).catch(function(e){delete PC[y];throw e;});
+  return PC[y];
+}
+function beginTest(qs,secs,title){
+  S.qs=qs;S.title=title;S.done=false;
+  S.ans=qs.map(function(){return 0;});S.vis=qs.map(function(){return false;});S.mk=qs.map(function(){return false;});
+  S.cur=0;S.left=secs;
+  el("start").style.display="none";el("test").style.display="flex";el("timer").style.display="block";
+  buildSubs();show(0);tick();
+  S.tid=setInterval(tick,1000);
+}
+function failMsg(){
+  el("smsg").style.color="#B4540A";el("smsg").textContent="Questions load nahi ho paye. Questions ki files GitHub par upload hui hain ya nahi, ye check karein.";
+  el("go").disabled=false;
+}
+el("go").onclick=function(){
+  var y=el("paper").value,sc=el("scope").value;
+  el("smsg").style.color="#5F6384";el("smsg").textContent="Questions load ho rahe hain...";
+  el("go").disabled=true;
+  loadPaper(y).then(function(p){
+    var qs=p.qs.filter(function(q){return sc==="all"||q.s===sc;});
+    if(!qs.length){throw new Error("empty");}
+    beginTest(qs,(sc==="all"?180:45)*60,p.title);
+  }).catch(failMsg);
 };
-
-const questionBank = {
-  physics: [
-    {q:"What is the SI unit of electric current?",opts:["Volt","Ampere","Ohm","Watt"],ans:1},
-    {q:"Speed of light in vacuum is:",opts:["3×10⁶ m/s","3×10⁸ m/s","3×10¹⁰ m/s","3×10⁵ m/s"],ans:1},
-    {q:"Which is a scalar quantity?",opts:["Force","Velocity","Work","Acceleration"],ans:2},
-    {q:"Ohm's law is valid for:",opts:["Metallic conductors","Semiconductors","Electrolytes","Vacuum"],ans:0},
-    {q:"SI unit of power of lens is:",opts:["Metre","Dioptre","Focus","Watt"],ans:1}
-  ],
-  chemistry: [
-    {q:"Chemical formula of water is:",opts:["H₂O₂","H₂O","HO","H₃O"],ans:1},
-    {q:"Which is a noble gas?",opts:["Oxygen","Nitrogen","Helium","Hydrogen"],ans:2},
-    {q:"Solution with pH less than 7 is:",opts:["Basic","Neutral","Acidic","Saline"],ans:2},
-    {q:"Horizontal rows in periodic table are:",opts:["Groups","Periods","Blocks","Series"],ans:1},
-    {q:"Symbol of sodium is:",opts:["So","Sd","Na","Nm"],ans:2}
-  ],
-  biology: [
-    {q:"Powerhouse of the cell is:",opts:["Ribosome","Mitochondria","Nucleus","Golgi body"],ans:1},
-    {q:"Photosynthesis occurs in:",opts:["Root","Stem","Leaf","Flower"],ans:2},
-    {q:"pH of human blood is:",opts:["7.0","7.4","6.5","8.0"],ans:1},
-    {q:"DNA stands for:",opts:["Deoxyribonucleic Acid","Dinucleic Acid","Deoxyribose Acid","Double Nucleic Acid"],ans:0},
-    {q:"Which is NOT part of digestive system?",opts:["Liver","Pancreas","Lung","Stomach"],ans:2}
-  ]
-};
-
-/* ============================================================
-   STATE VARIABLES
-   ============================================================ */
-let currentQuestions = [];
-let currentIndex = 0;
-let userAnswers = {};
-let visited = {};
-let markedForReview = {};
-let timerInterval = null;
-let timeLeft = 0;
-let examType = '';
-let pendingExamConfig = null;
-let isNTAMode = false; 
-
-const subjectNames = {physics:'Physics', chemistry:'Chemistry', biology:'Biology', full:'Full NEET Mock'};
-
-/* ============================================================
-   ENTRY SCREEN LOGIC
-   ============================================================ */
-let activeSubject = 'physics';
-
-function switchSubject(subj){
-  activeSubject = subj;
-  document.querySelectorAll('.subj-tab').forEach(b => b.classList.toggle('active', b.dataset.subj === subj));
-  renderChapterList();
+function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function startChapter(subject,name,refs){
+  el("smsg").style.color="#5F6384";el("smsg").textContent="Questions load ho rahe hain...";
+  var years=[];refs.forEach(function(r){if(years.indexOf(r[0])<0){years.push(r[0]);}});
+  Promise.all(years.map(loadPaper)).then(function(ps){
+    var map={};
+    ps.forEach(function(p,i){p.qs.forEach(function(q){map[years[i]+"#"+q.n]=q;});});
+    var qs=[];
+    shuffle(refs.slice()).forEach(function(r){var q=map[r[0]+"#"+r[1]];if(q){qs.push(q);}});
+    qs=qs.slice(0,10);
+    if(!qs.length){throw new Error("empty");}
+    el("smsg").textContent="";
+    beginTest(qs,Math.min(10,qs.length)*60,"Chapter test: "+name);
+  }).catch(failMsg);
 }
-
-function renderChapterList(){
-  const list = document.getElementById('chapList');
-  list.innerHTML = '';
-  chapters[activeSubject].forEach((ch, i) => {
-    const div = document.createElement('div');
-    div.className = 'chap-item';
-    div.innerHTML = `<span>${i+1}. ${ch}</span>`;
-    // Chapter click directly starts test (No instructions)
-    div.onclick = () => startTest(activeSubject, ch, false); 
-    list.appendChild(div);
-  });
-}
-
-function showInstructions(type){
-  examType = type;
-  pendingExamConfig = { type, isNTA: true };
-  document.getElementById('entryScreen').style.display = 'none';
-  document.getElementById('instructionScreen').style.display = 'block';
-}
-
-/* ============================================================
-   TEST START LOGIC
-   ============================================================ */
-function startTest(type, chapterName = null, useNTA = true){
-  isNTAMode = useNTA;
-  
-  if(type === 'full'){
-    currentQuestions = [
-      ...questionBank.biology, 
-      ...questionBank.physics, 
-      ...questionBank.chemistry
-    ];
-    timeLeft = 180 * 60;
-  } else {
-    currentQuestions = [...questionBank[type]];
-    timeLeft = 10 * 60;
-  }
-
-  if(!currentQuestions.length){ alert('No questions available.'); return; }
-
-  currentIndex = 0;
-  userAnswers = {};
-  visited = {};
-  markedForReview = {};
-
-  document.getElementById('entryScreen').style.display = 'none';
-  document.getElementById('instructionScreen').style.display = 'none';
-  document.getElementById('examScreen').style.display = 'block';
-  document.getElementById('resultScreen').style.display = 'none';
-  
-  let titleStr = chapterName ? `${subjectNames[type]} · ${chapterName}` : subjectNames[type
+function showChapters(subject){
+  var box=el("chlist");box.innerHTML="";
+  CHI[subject].forEach(function(c){
+    var name=c[0],refs=c[1];
+    var b=E("button","display:flex;justify-content:space-between;align-items:center;gap:10px;min-height:48px;padding:0 16px;b
