@@ -21,23 +21,14 @@ select{min-height:48px;border-radius:14px;border:2px solid #E6E8F6;padding:0 14p
 <div class="w" style="min-height:900px">
 <div class="dk" style="padding:14px 0"><div class="ct" style="display:flex;align-items:center;gap:14px;flex-wrap:wrap"><a href="index.html" style="flex:1 1 200px"><b style="font:800 20px 'Plus Jakarta Sans'">NEET Saathi · CBT Mock Test</b></a><div class="nav"><a href="teacher.html">AI Teacher</a><a href="galti.html">Galti Notebook</a><a href="weak.html">Progress</a><a href="plan.html">Daily Plan</a></div><div id="timer" style="display:none;background:#fff;color:#4F46E5;border-radius:14px;padding:6px 16px;font:800 22px 'Plus Jakarta Sans'">00:00:00</div></div></div>
 <div class="ct" style="padding-top:22px;padding-bottom:40px">
-<div id="start" class="cd" style="max-width:640px;display:flex;flex-direction:column;gap:14px">
+<div id="start" class="cd" style="max-width:560px;display:flex;flex-direction:column;gap:14px">
 <h2 style="margin:0;font:800 24px 'Plus Jakarta Sans'">Test shuru karein</h2>
-<div class="g2"><button id="m1" class="btn">Poora Mock Test</button><button id="m2" class="btn" style="background:#fff;color:#4F46E5;box-shadow:inset 0 0 0 2px #4F46E5">Chapter-wise Test</button></div>
 <div style="color:#5F6384;font-size:14px;line-height:1.5">Asli NEET paper ke questions. Sahi jawab par +4, galat par -1. Galat questions apne aap Galti Notebook me save ho jaate hain.</div>
-<div id="p1" style="display:flex;flex-direction:column;gap:14px">
 <label style="font-weight:700;font-size:14px">Kaunsa paper?</label>
 <select id="paper"><option value="2025">NEET 2025</option><option value="2019">NEET 2019</option><option value="2018">NEET 2018</option></select>
 <label style="font-weight:700;font-size:14px">Kitna?</label>
 <select id="scope"><option value="all">Poora paper (180 questions, 3 ghante)</option><option value="Physics">Sirf Physics (45 questions, 45 minute)</option><option value="Chemistry">Sirf Chemistry (45 questions, 45 minute)</option><option value="Botany">Sirf Botany (45 questions, 45 minute)</option><option value="Zoology">Sirf Zoology (45 questions, 45 minute)</option></select>
 <div><button id="go" class="btn">Test shuru karein</button></div>
-</div>
-<div id="p2" style="display:none;flex-direction:column;gap:12px">
-<div style="font-weight:700;font-size:14px">Subject chunein</div>
-<div id="subbtn" class="g2"></div>
-<div id="chlist" style="display:flex;flex-direction:column;gap:8px"></div>
-<div style="color:#5F6384;font-size:13px;line-height:1.5">Har chapter test me 10 minute milte hain aur zyada se zyada 10 questions aate hain. Agar chapter me 10 se kam questions hain, to har question ke liye 1 minute milta hai.</div>
-</div>
 <div id="smsg" style="font-size:14px;color:#B4540A;min-height:18px"></div>
 </div>
 <div id="test" style="display:none;flex-wrap:wrap;gap:22px;align-items:flex-start">
@@ -60,30 +51,13 @@ var S={qs:[],ans:[],vis:[],mk:[],cur:0,left:0,tid:null,paper:"",title:"",done:fa
 function el(i){return document.getElementById(i);}
 function E(tag,css,text){var n=document.createElement(tag);if(css){n.style.cssText=css;}if(text!==undefined&&text!==null){n.textContent=String(text);}return n;}
 function fmt(t){var h=Math.floor(t/3600),m=Math.floor(t%3600/60),s=t%60;return (h<10?"0":"")+h+":"+(m<10?"0":"")+m+":"+(s<10?"0":"")+s;}
-var CHI={"Physics":[["Units and Measurements",[["2018",37],["2019",62],["2025",25],["2025",42]]],["Motion in a Straight Line",[["2025",10],["2025",15],["2025",21]]],["Motion in a Plane",[["2019",52],["2019",53],["2019",74],["2025",7]]],["Laws of Motion",[["2018",33],["2018",35],["2019",50],["2019",84],["2019",88],["2025",4]]],["Work, Energy and Power",[["2018",30],["2018",32],["2019",51],["2019",71],["2025",5]]],["System of Particles and Rotational Motion",[["2018",31],["2018",36],["2018",38],["2018",41],["2019",61],["2019",65],["2025",22],["2025",30],["2025",39]]],["Gravitation",[["2018",39],["2018",40],["2019",63],["2019",89],["2025",17],["2025",31],["2025",32]]],["Mechanical Properties of Solids",[["2018",44],["2019",60]]],["Mechanical Properties of Fluids",[["2018",42],["2019",57],["2019",85],["2025",1],["2025",24]]],["Thermal Properties of Matter",[["2018",43],["2019",58],["2019",59],["2025",19]]],["Thermodynamics",[["2018",1],["2018",4],["2018",45],["2019",46],["2025",41]]],["Kinetic Theory",[["2018",3],["2019",47],["2025",14],["2025",29]]],["Oscillations",[["2018",25],["2019",54],["2019",56],["2019",66],["2025",23],["2025",44]]],["Waves",[["2018",2],["2018",24],["2025",45]]],["Electric Charges and Fields",[["2018",22],["2018",34],["2019",67],["2019",77],["2019",86],["2025",28],["2025",35]]],["Electrostatic Potential and Capacitance",[["2018",23],["2025",20]]],["Current Electricity",[["2018",5],["2018",6],["2018",7],["2019",69],["2019",79],["2019",81],["2025",6],["2025",11],["2025",33],["2025",36]]],["Moving Charges and Magnetism",[["2018",26],["2018",29],["2019",73],["2019",87],["2025",3],["2025",12],["2025",18]]],["Magnetism and Matter",[["2018",27],["2019",70]]],["Electromagnetic Induction",[["2018",21],["2019",55],["2019",68]]],["Alternating Current",[["2018",28],["2025",16]]],["Electromagnetic Waves",[["2018",18],["2019",80],["2025",9],["2025",26]]],["Ray Optics",[["2018",10],["2018",19],["2018",20],["2019",72],["2019",75],["2019",76],["2025",2],["2025",13]]],["Wave Optics",[["2018",8],["2018",9],["2019",64],["2019",90],["2025",27],["2025",43]]],["Dual Nature of Radiation and Matter",[["2018",12],["2018",14],["2019",83],["2025",37],["2025",38]]],["Atoms",[["2018",11],["2019",48],["2025",34]]],["Nuclei",[["2018",13],["2019",82]]],["Semiconductor Electronics",[["2018",15],["2018",16],["2018",17],["2019",49],["2019",78],["2025",8],["2025",40]]]],"Chemistry":[["Some Basic Concepts of Chemistry",[["2018",78],["2019",4],["2025",54],["2025",68]]],["Structure of Atom",[["2018",90],["2019",25],["2019",33],["2025",46],["2025",50]]],["Classification of Elements and Periodicity",[["2018",49],["2019",22],["2025",53]]],["Chemical Bonding and Molecular Structure",[["2018",51],["2018",63],["2018",87],["2018",88],["2019",8],["2019",9],["2019",24],["2025",62],["2025",64],["2025",87]]],["Thermodynamics",[["2018",85],["2019",1],["2019",36],["2025",65],["2025",85]]],["Equilibrium",[["2018",74],["2018",77],["2018",83],["2019",3],["2019",14],["2019",15],["2025",59],["2025",73],["2025",88]]],["Redox Reactions",[["2018",46],["2018",81],["2018",82],["2019",10],["2025",55]]],["States of Matter",[["2018",76],["2018",86],["2019",40]]],["Organic Chemistry: Basic Principles",[["2018",64],["2018",65],["2025",58],["2025",70],["2025",72],["2025",75],["2025",76],["2025",86],["2025",90]]],["Hydrocarbons",[["2018",61],["2018",62],["2019",17],["2019",30],["2019",41],["2025",60]]],["Solutions",[["2019",5],["2019",34],["2025",66],["2025",79],["2025",81]]],["Electrochemistry",[["2019",6],["2019",35],["2025",61]]],["Chemical Kinetics",[["2018",79],["2018",84],["2019",23],["2019",43],["2025",56],["2025",89]]],["d and f Block Elements",[["2018",69],["2018",70],["2019",21]]],["Coordination Compounds",[["2018",71],["2018",72],["2018",73],["2019",44],["2025",51],["2025",57],["2025",63]]],["Haloalkanes and Haloarenes",[["2025",84]]],["Alcohols, Phenols and Ethers",[["2018",52],["2018",60],["2018",66],["2019",16],["2019",20],["2025",77]]],["Aldehydes, Ketones and Carboxylic Acids",[["2018",57],["2018",67],["2018",68],["2019",42],["2025",78],["2025",83]]],["Amines",[["2018",55],["2019",12],["2025",49],["2025",67],["2025",74]]],["Biomolecules",[["2018",53],["2018",56],["2019",39],["2025",69],["2025",82]]],["Solid State",[["2018",89],["2019",2],["2025",71]]],["Surface Chemistry",[["2018",75],["2019",13],["2025",80]]],["p-Block Elements",[["2018",47],["2018",50],["2018",59],["2019",18],["2019",27],["2019",28],["2019",29],["2019",37],["2019",38],["2025",47],["2025",52]]],["s-Block Elements",[["2018",58],["2019",19],["2019",31]]],["Hydrogen",[["2018",80],["2019",45]]],["General Principles of Metallurgy",[["2018",48],["2019",32]]],["Environmental Chemistry",[["2019",7]]],["Polymers",[["2018",54],["2019",26]]],["Chemistry in Everyday Life",[["2019",11]]],["Practical Chemistry",[["2025",48]]]],"Biology":[["The Living World",[["2018",133],["2019",180],["2025",95]]],["Biological Classification",[["2018",118],["2018",131],["2018",132],["2018",147],["2018",152],["2019",91],["2019",131],["2019",145],["2019",164],["2025",132]]],["Plant Kingdom",[["2018",130],["2018",135],["2019",141],["2025",111],["2025",119],["2025",159],["2025",162],["2025",168]]],["Animal Kingdom",[["2018",148],["2018",150],["2018",151],["2019",109],["2019",128],["2025",109],["2025",139],["2025",166]]],["Morphology of Flowering Plants",[["2018",126],["2018",129],["2019",132],["2025",104],["2025",155]]],["Anatomy of Flowering Plants",[["2018",124],["2018",125],["2018",127],["2018",128],["2019",148],["2019",160],["2019",168],["2025",118]]],["Structural Organisation in Animals",[["2018",149],["2019",167],["2019",171],["2025",107],["2025",169],["2025",175]]],["Cell: The Unit of Life",[["2018",119],["2018",121],["2018",171],["2018",173],["2019",110],["2019",113],["2019",123],["2019",124],["2019",177],["2025",98],["2025",121],["2025",128],["2025",140]]],["Biomolecules",[["2018",117],["2019",143],["2019",157],["2025",117],["2025",131],["2025",137],["2025",149]]],["Cell Cycle and Cell Division",[["2018",123],["2019",138],["2019",163],["2025",158]]],["Transport in Plants",[["2018",122],["2019",115],["2019",126]]],["Mineral Nutrition",[["2018",95],["2018",97],["2019",139],["2025",113]]],["Photosynthesis in Higher Plants",[["2018",91],["2018",120],["2025",122],["2025",171]]],["Respiration in Plants",[["2018",96],["2018",170],["2019",135],["2019",154],["2025",91]]],["Plant Growth and Development",[["2019",111],["2019",161],["2025",108],["2025",173]]],["Digestion and Absorption",[["2018",165],["2018",172],["2019",94],["2019",149]]],["Breathing and Exchange of Gases",[["2018",136],["2018",138],["2018",167],["2019",158],["2019",175],["2025",101]]],["Body Fluids and Circulation",[["2018",137],["2018",166],["2019",165],["2019",178],["2025",94],["2025",112]]],["Excretory Products and Their Elimination",[["2018",163],["2018",164],["2019",121],["2019",125],["2025",125],["2025",148]]],["Locomotion and Movement",[["2018",168],["2019",127],["2019",142],["2025",142]]],["Neural Control and Coordination",[["2018",139],["2018",142],["2018",169],["2019",112],["2019",155]]],["Chemical Coordination and Integration",[["2018",140],["2018",141],["2019",93],["2019",150],["2019",174],["2025",160],["2025",161],["2025",165],["2025",178]]],["Sexual Reproduction in Flowering Plants",[["2018",92],["2018",93],["2018",94],["2018",107],["2018",108],["2018",110],["2018",134],["2019",118],["2019",159],["2019",162],["2019",169],["2025",102],["2025",124],["2025",127],["2025",141],["2025",153],["2025",154],["2025",157]]],["Human Reproduction",[["2018",143],["2018",144],["2018",145],["2018",162],["2019",105],["2019",107],["2019",144],["2025",110],["2025",123],["2025",138],["2025",147],["2025",176]]],["Reproductive Health",[["2018",146],["2019",102],["2019",119],["2019",151],["2025",93]]],["Principles of Inheritance and Variation",[["2018",102],["2018",104],["2018",105],["2018",159],["2018",180],["2019",101],["2019",114],["2019",129],["2019",136],["2019",137],["2025",130],["2025",145],["2025",152]]],["Molecular Basis of Inheritance",[["2018",106],["2018",109],["2018",158],["2018",161],["2018",174],["2019",92],["2019",98],["2019",104],["2019",122],["2019",170],["2025",96],["2025",106],["2025",114],["2025",129],["2025",134],["2025",146],["2025",163],["2025",174]]],["Evolution",[["2018",160],["2018",177],["2018",179],["2019",108],["2019",134],["2019",153],["2019",172],["2025",151]]],["Human Health and Disease",[["2018",157],["2018",175],["2018",176],["2019",120],["2019",152],["2019",173],["2025",120],["2025",135],["2025",143],["2025",156],["2025",167]]],["Microbes in Human Welfare",[["2018",178],["2019",95],["2019",100],["2019",103],["2019",176],["2019",179],["2025",103],["2025",105],["2025",177]]],["Biotechnology: Principles and Processes",[["2018",101],["2019",130],["2019",147],["2025",92],["2025",115],["2025",126],["2025",136],["2025",172],["2025",179]]],["Biotechnology and Its Applications",[["2018",98],["2018",99],["2018",100],["2018",103],["2019",96],["2019",166],["2025",116],["2025",144]]],["Organisms and Populations",[["2018",111],["2018",114],["2018",153],["2018",156],["2025",97],["2025",133],["2025",180]]],["Ecosystem",[["2018",115],["2019",156],["2025",100],["2025",150],["2025",170]]],["Biodiversity and Conservation",[["2018",154],["2019",97],["2019",133],["2025",99],["2025",164]]],["Environmental Issues",[["2018",112],["2018",113],["2018",116],["2018",155],["2019",99],["2019",116],["2019",117],["2019",140],["2019",146]]],["Strategies for Enhancement in Food Production",[["2019",106]]]]};
-var PC={};
 function loadPaper(y){
-  if(PC[y]){return PC[y];}
   var fs=FILES[y];
-  PC[y]=Promise.all(fs.map(function(f){return fetch(f).then(function(r){if(!r.ok){throw new Error(f);}return r.json();});})).then(function(arr){
+  return Promise.all(fs.map(function(f){return fetch(f).then(function(r){if(!r.ok){throw new Error(f);}return r.json();});})).then(function(arr){
     var qs=[];arr.forEach(function(d){qs=qs.concat(d.questions);});
-    qs.forEach(function(q){q.p=y;});
     qs.sort(function(a,b){return a.n-b.n;});
     return {title:arr[0].title,qs:qs};
-  }).catch(function(e){delete PC[y];throw e;});
-  return PC[y];
-}
-function beginTest(qs,secs,title){
-  S.qs=qs;S.title=title;S.done=false;
-  S.ans=qs.map(function(){return 0;});S.vis=qs.map(function(){return false;});S.mk=qs.map(function(){return false;});
-  S.cur=0;S.left=secs;
-  el("start").style.display="none";el("test").style.display="flex";el("timer").style.display="block";
-  buildSubs();show(0);tick();
-  S.tid=setInterval(tick,1000);
-}
-function failMsg(){
-  el("smsg").style.color="#B4540A";el("smsg").textContent="Questions load nahi ho paye. Questions ki files GitHub par upload hui hain ya nahi, ye check karein.";
-  el("go").disabled=false;
+  });
 }
 el("go").onclick=function(){
   var y=el("paper").value,sc=el("scope").value;
@@ -92,26 +66,131 @@ el("go").onclick=function(){
   loadPaper(y).then(function(p){
     var qs=p.qs.filter(function(q){return sc==="all"||q.s===sc;});
     if(!qs.length){throw new Error("empty");}
-    beginTest(qs,(sc==="all"?180:45)*60,p.title);
-  }).catch(failMsg);
+    S.qs=qs;S.paper=y;S.title=p.title;S.done=false;
+    S.ans=qs.map(function(){return 0;});S.vis=qs.map(function(){return false;});S.mk=qs.map(function(){return false;});
+    S.cur=0;S.left=(sc==="all"?180:45)*60;
+    el("start").style.display="none";el("test").style.display="flex";el("timer").style.display="block";
+    buildSubs();show(0);tick();
+    S.tid=setInterval(tick,1000);
+  }).catch(function(){
+    el("smsg").style.color="#B4540A";el("smsg").textContent="Ye paper abhi load nahi ho paya. Questions ki file GitHub par upload hui hai ya nahi, ye check karein.";
+    el("go").disabled=false;
+  });
 };
-function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
-function startChapter(subject,name,refs){
-  el("smsg").style.color="#5F6384";el("smsg").textContent="Questions load ho rahe hain...";
-  var years=[];refs.forEach(function(r){if(years.indexOf(r[0])<0){years.push(r[0]);}});
-  Promise.all(years.map(loadPaper)).then(function(ps){
-    var map={};
-    ps.forEach(function(p,i){p.qs.forEach(function(q){map[years[i]+"#"+q.n]=q;});});
-    var qs=[];
-    shuffle(refs.slice()).forEach(function(r){var q=map[r[0]+"#"+r[1]];if(q){qs.push(q);}});
-    qs=qs.slice(0,10);
-    if(!qs.length){throw new Error("empty");}
-    el("smsg").textContent="";
-    beginTest(qs,Math.min(10,qs.length)*60,"Chapter test: "+name);
-  }).catch(failMsg);
+function tick(){
+  if(S.done){return;}
+  el("timer").textContent=fmt(Math.max(0,S.left));
+  if(S.left<=0){finish(true);return;}
+  S.left-=1;
 }
-function showChapters(subject){
-  var box=el("chlist");box.innerHTML="";
-  CHI[subject].forEach(function(c){
-    var name=c[0],refs=c[1];
-    var b=E("button","display:flex;justify-content:space-between;align-items:center;gap:10px;min-height:48px;padding:0 16px;b
+function buildSubs(){
+  var d=el("subs");d.innerHTML="";
+  var seen={};
+  S.qs.forEach(function(q,i){
+    if(!seen[q.s]){seen[q.s]=1;
+      var b=E("button","min-height:40px;padding:0 16px;background:#fff;color:#4F46E5;box-shadow:inset 0 0 0 2px #4F46E5",q.s);
+      b.className="btn";b.onclick=function(){show(i);};d.appendChild(b);
+    }
+  });
+}
+function status(i){
+  if(S.mk[i]){return "mk";}
+  if(S.ans[i]){return "ans";}
+  if(S.vis[i]){return "nan";}
+  return "";
+}
+function drawPal(){
+  var p=el("pal");p.innerHTML="";
+  S.qs.forEach(function(q,i){
+    var b=E("button",null,q.n);b.className="pc "+status(i)+(i===S.cur?" cur":"");
+    b.onclick=function(){show(i);};p.appendChild(b);
+  });
+}
+function show(i){
+  S.cur=i;S.vis[i]=true;
+  var q=S.qs[i];
+  el("qno").textContent="Question "+(i+1)+" / "+S.qs.length+"  (Q."+q.n+")";
+  el("qsub").textContent=q.s;
+  el("qimg").src=q.img;
+  var o=el("opts");o.innerHTML="";
+  for(var k=1;k<=4;k++){(function(k){
+    var d=E("div",null,null);d.className="opt"+(S.ans[i]===k?" on":"");
+    d.appendChild(E("b",null,"("+k+")"));d.appendChild(E("span",null,"Option "+k));
+    d.onclick=function(){S.ans[i]=(S.ans[i]===k?0:k);show(i);};
+    o.appendChild(d);})(k);}
+  el("mark").textContent=S.mk[i]?"Unmark Review":"Mark for Review";
+  drawPal();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+el("next").onclick=function(){if(S.cur<S.qs.length-1){show(S.cur+1);}else{drawPal();}};
+el("prev").onclick=function(){if(S.cur>0){show(S.cur-1);}};
+el("clr").onclick=function(){S.ans[S.cur]=0;show(S.cur);};
+el("mark").onclick=function(){S.mk[S.cur]=!S.mk[S.cur];show(S.cur);};
+el("submit").onclick=function(){
+  var n=S.ans.filter(function(a){return a>0;}).length;
+  if(window.confirm(S.qs.length+" me se "+n+" questions attempt kiye hain. Test submit karein?")){finish(false);}
+};
+function saveGalti(list){
+  var items=[];
+  try{var r=localStorage.getItem(GKEY);items=r?JSON.parse(r):[];if(!Array.isArray(items)){items=[];}}catch(e){items=[];}
+  var added=0,now=Date.now();
+  list.forEach(function(q){
+    var ref="neet"+S.paper+"#"+q.n;
+    if(items.some(function(x){return x.ref===ref;})){return;}
+    var sub=(q.s==="Botany"||q.s==="Zoology")?"Biology":q.s;
+    items.push({id:String(now)+q.n,subject:sub,q:"NEET "+S.paper+" ke Question "+q.n+" (mock test me galat hua)",why:"Mock test me galat attempt",created:now,stage:0,next:now+GAP[0]*DAY,ref:ref,paper:S.paper,qn:q.n});
+    added++;
+  });
+  try{localStorage.setItem(GKEY,JSON.stringify(items));}catch(e){return -1;}
+  return added;
+}
+function finish(auto){
+  if(S.done){return;}
+  S.done=true;clearInterval(S.tid);
+  var tot={c:0,w:0,s:0},by={},wrong=[],skip=[],right=[];
+  S.qs.forEach(function(q,i){
+    var b=by[q.s]=by[q.s]||{c:0,w:0,s:0};
+    var a=S.ans[i];
+    if(!a){b.s++;tot.s++;skip.push(i);}
+    else if(q.a&&q.a.indexOf(a)>=0){b.c++;tot.c++;right.push(i);}
+    else{b.w++;tot.w++;wrong.push(i);}
+  });
+  var score=tot.c*4-tot.w;
+  var added=saveGalti(wrong.map(function(i){return S.qs[i];}));
+  el("test").style.display="none";el("timer").style.display="none";
+  var r=el("result");r.style.display="flex";r.innerHTML="";
+  var top=E("div","border-radius:24px;padding:22px;color:#fff;background:linear-gradient(135deg,#4F46E5,#8B5CF6);display:flex;flex-direction:column;gap:6px");
+  top.appendChild(E("div","font:700 12px 'Plus Jakarta Sans';letter-spacing:.08em;opacity:.85",(auto?"TIME KHATAM":"RESULT")+" · "+S.title));
+  top.appendChild(E("div","font:800 40px 'Plus Jakarta Sans'",score+" / "+(S.qs.length*4)));
+  top.appendChild(E("div","font-size:15px","Sahi: "+tot.c+"  ·  Galat: "+tot.w+"  ·  Chhode: "+tot.s));
+  r.appendChild(top);
+  var note=E("div","border-radius:18px;padding:14px 16px;background:#EEF0FF;font-size:14px;line-height:1.5");
+  note.textContent=(added>0?added+" galat question Galti Notebook me save ho gaye.":(tot.w?"Galat questions pehle se Galti Notebook me hain.":"Koi galat question nahi. Shabash!"));
+  r.appendChild(note);
+  var sc=E("div","display:flex;flex-direction:column;gap:8px");sc.className="cd";
+  sc.appendChild(E("b","font-size:16px","Subject ke hisaab se"));
+  Object.keys(by).forEach(function(k){
+    var b=by[k];
+    var row=E("div","display:flex;justify-content:space-between;font-size:14px;gap:10px");
+    row.appendChild(E("span",null,k));
+    row.appendChild(E("span","color:#5F6384","Sahi "+b.c+" · Galat "+b.w+" · Chhode "+b.s+" · Marks "+(b.c*4-b.w)));
+    sc.appendChild(row);
+  });
+  r.appendChild(sc);
+  var tabs=E("div","display:flex;gap:10px;flex-wrap:wrap");
+  var list=E("div","display:flex;flex-direction:column;gap:14px");
+  function showList(arr,title){
+    list.innerHTML="";
+    if(!arr.length){var e=E("div","color:#5F6384;font-size:14px;padding:10px","Is hisse me koi question nahi.");list.appendChild(e);return;}
+    arr.forEach(function(i){
+      var q=S.qs[i];
+      var c=E("div","display:flex;flex-direction:column;gap:10px;padding:16px");c.className="cd";
+      c.appendChild(E("div","font-size:14px;font-weight:700","Q."+q.n+" · "+q.s+"  |  Aapka jawab: "+(S.ans[i]?"("+S.ans[i]+")":"chhoda")+"  |  Sahi jawab: "+(q.a&&q.a.length?q.a.map(function(x){return "("+x+")";}).join(" ya "):"-")));
+      var im=E("img");im.className="qi";im.src=q.img;c.appendChild(im);
+      list.appendChild(c);
+    });
+  }
+  [["Galat ("+tot.w+")",wrong],["Chhode ("+tot.s+")",skip],["Sahi ("+tot.c+")",right]].forEach(function(t){
+    var b=E("button","min-height:42px;padding:0 16px;background:#fff;color:#4F46E5;box-shadow:inset 0 0 0 2px #4F46E5",t[0]);
+    b.className="btn";b.onclick=function(){showList(t[1],t[0]);};tabs.appendChild(b);
+  });
