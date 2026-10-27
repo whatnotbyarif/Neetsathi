@@ -13,11 +13,11 @@ body{margin:0}a{color:inherit;text-decoration:none}
 <main style="flex:1 1 520px;padding:28px;display:flex;flex-direction:column;gap:18px;box-sizing:border-box"><div class="cd" style="display:flex;flex-direction:column;gap:10px"><div style="display:flex;gap:8px;flex-wrap:wrap"><span id="c1" class="ch" style="background:#EEF0FF;color:#4F46E5">Biology</span><span id="c2" class="ch" style="background:#E4ECFB;color:#1F4FA3">Cell Biology</span><span id="c3" class="ch" style="background:#FFE9CC;color:#8A4A00">Medium</span></div><div id="qt" style="font:700 22px/1.3 'Plus Jakarta Sans'"></div><div id="qs" style="font-size:13px;color:#5F6384"></div></div>
 <div id="out" style="display:flex;flex-direction:column;gap:18px"></div>
 <div style="display:flex;gap:12px;flex-wrap:wrap"><button id="nx" class="btn">Next Concept</button><button id="ag" class="btn" style="background:#fff;color:#4F46E5;box-shadow:inset 0 0 0 2px #4F46E5">Explain Differently</button></div><div style="flex:1"></div>
-<div style="display:flex;gap:10px"><input id="q" aria-label="Doubt" placeholder="Apna doubt yahan type karein..." style="flex:1;min-height:52px;border-radius:26px;border:0;padding:0 22px;font:16px 'Plus Jakarta Sans';box-shadow:0 8px 20px rgba(55,48,163,.14)"><button id="send" class="btn" style="border-radius:26px">Send</button></div></main>
+<div style="display:flex;gap:10px"><input id="q" aria-label="Doubt" placeholder="Type your doubt here..." style="flex:1;min-height:52px;border-radius:26px;border:0;padding:0 22px;font:16px 'Plus Jakarta Sans';box-shadow:0 8px 20px rgba(55,48,163,.14)"><button id="send" class="btn" style="border-radius:26px">Send</button></div></main>
 <aside style="flex:0 0 280px;padding:28px 20px;box-sizing:border-box"><div class="dk" style="border-radius:28px;padding:18px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px"><svg viewBox="0 0 240 280" width="170" role="img" aria-label="Dhruva Sir, AI teacher robot"><circle cx="120" cy="140" r="112" fill="rgba(139,92,246,.28)"/><path d="M120 44V22" stroke="#C7CBF5" stroke-width="4"/><circle cx="120" cy="16" r="8" fill="#FFC857"/><rect x="48" y="98" width="14" height="34" rx="7" fill="#8B5CF6"/><rect x="178" y="98" width="14" height="34" rx="7" fill="#8B5CF6"/><rect x="60" y="68" width="120" height="100" rx="30" fill="#EEF0FF" stroke="#C7CBF5" stroke-width="3"/><rect x="74" y="86" width="92" height="62" rx="20" fill="#12163F"/><circle cx="100" cy="112" r="9" fill="#22D3EE"/><circle cx="140" cy="112" r="9" fill="#22D3EE"/><path d="M104 130Q120 143 136 130" stroke="#22D3EE" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M68 56L120 32L172 56L120 74Z" fill="#1B1B3A"/><path d="M172 56L182 88" stroke="#FFC857" stroke-width="3"/><circle cx="182" cy="90" r="5" fill="#FFC857"/><rect x="56" y="186" width="24" height="54" rx="12" fill="#8B5CF6"/><rect x="160" y="186" width="24" height="54" rx="12" fill="#8B5CF6"/><rect x="78" y="176" width="84" height="76" rx="26" fill="#4F46E5"/><circle cx="120" cy="212" r="14" fill="#FFC857"/><path d="M113 212l5 5 9-10" stroke="#1B1B3A" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><b style="font-size:20px">Dhruva Sir</b><span style="font-size:13px;color:rgba(255,255,255,.8)">NEET Biology teacher · Online</span></div><div class="cd" style="margin-top:16px;padding:18px"><div style="font:700 12px 'Plus Jakarta Sans';color:#5F6384;letter-spacing:.06em">BOOK REFERENCE</div><div style="margin-top:8px;font-weight:700">[Book ka naam]</div><div style="color:#5F6384;font-size:14px">Chapter · Question number</div><button class="btn" style="margin-top:12px;min-height:44px;width:100%">View Book Page</button></div></aside></div><script>
 var API="https://dhruva-sir.mdarif829437.workers.dev";
 var last="";
-var LANG="hinglish";
+var LANG="en";
 var ASKED=false;
 var LB={
 hinglish:{sa:"SHORT ANSWER",steps:"Step-by-step Explanation",formula:"FORMULA",example:"REAL-LIFE EXAMPLE",diagram:"Diagram",remember:"YAAD RAKHEIN",check:"AAPKE LIYE SAWAL",loading:"Dhruva Sir aapka answer taiyar kar rahe hain...",your:"Aapka doubt",nx:"Next Concept",ag:"Explain Differently",ph:"Apna doubt yahan type karein...",send:"Send"},
@@ -31,14 +31,14 @@ hi:{ag:"पिछला प्रश्न: {Q} । इसे किसी द�
 };
 function L(k){return (LB[LANG]||LB.hinglish)[k];}
 function applyLang(l){
-  LANG=LB[l]?l:"hinglish";
+  LANG=LB[l]?l:"en";
   el("nx").textContent=L("nx");
   el("ag").textContent=L("ag");
   el("q").placeholder=L("ph");
   el("send").textContent=L("send");
 }
-var SAMPLE_SVG='<svg viewBox="0 0 400 220"><rect x="0" y="0" width="400" height="220" fill="#F1F2FB"/><ellipse cx="200" cy="110" rx="170" ry="70" fill="#FCE3D3" stroke="#B4540A" stroke-width="3"/><path d="M70 110C85 60 100 60 115 110S145 160 160 110S190 60 205 110S235 160 250 110S280 60 295 110S320 140 335 110" fill="none" stroke="#B4540A" stroke-width="3"/><text x="200" y="30" text-anchor="middle" font-size="14" fill="#1B1B3A">Outer membrane</text><text x="200" y="205" text-anchor="middle" font-size="14" fill="#1B1B3A">Cristae: yahan ATP banta hai</text></svg>';
-var SAMPLE={subject:"Biology",topic:"Cell: The Unit of Life",difficulty:"Medium",title:"Mitochondria ko cell ka powerhouse kyun kehte hain?",short_answer:"Mitochondria cell ke liye ATP (energy) banata hai, isliye ise cell ka powerhouse kaha jata hai.",steps:[{heading:"Cell ko energy chahiye",text:"Cell ke har kaam, jaise growth aur transport, ke liye energy ki zarurat hoti hai."},{heading:"Energy ka form: ATP",text:"Cell ki energy currency ATP hai, jo turant use ho sakti hai."},{heading:"ATP ka production",text:"Mitochondria ki inner membrane (cristae) par cellular respiration se ATP banta hai."}],formula:"Glucose + O2 -> CO2 + H2O + ATP",example:"Jaise power plant poore sheher ko bijli deta hai, waise mitochondria poori cell ko energy deta hai.",remember:"Mitochondria = ATP ki factory",diagram_svg:SAMPLE_SVG,diagram_caption:"Mitochondria ka structure (sample)",check_question:"ATP banane ke liye cell ko kaunsi gas chahiye hoti hai?"};
+var SAMPLE_SVG='<svg viewBox="0 0 400 220"><rect x="0" y="0" width="400" height="220" fill="#F1F2FB"/><ellipse cx="200" cy="110" rx="170" ry="70" fill="#FCE3D3" stroke="#B4540A" stroke-width="3"/><path d="M70 110C85 60 100 60 115 110S145 160 160 110S190 60 205 110S235 160 250 110S280 60 295 110S320 140 335 110" fill="none" stroke="#B4540A" stroke-width="3"/><text x="200" y="30" text-anchor="middle" font-size="14" fill="#1B1B3A">Outer membrane</text><text x="200" y="205" text-anchor="middle" font-size="14" fill="#1B1B3A">Cristae: ATP is made here</text></svg>';
+var SAMPLE={language:"en",subject:"Biology",topic:"Cell: The Unit of Life",difficulty:"Medium",title:"Why is the mitochondrion called the powerhouse of the cell?",short_answer:"Mitochondria produce most of the cell's ATP (energy), which is why they are called the powerhouse of the cell.",steps:[{heading:"Cells need energy",text:"Every cell activity, such as growth and transport, needs energy."},{heading:"The energy currency: ATP",text:"ATP is the molecule that cells use as ready-to-use energy."},{heading:"How ATP is made",text:"ATP is produced on the inner membrane (cristae) of mitochondria during cellular respiration."}],formula:"Glucose + O2 -> CO2 + H2O + ATP",example:"Just as a power plant supplies electricity to a whole city, mitochondria supply energy to the whole cell.",remember:"Mitochondria = the ATP factory of the cell",diagram_svg:SAMPLE_SVG,diagram_caption:"Structure of a mitochondrion (sample)",check_question:"Which gas does the cell need to make ATP through aerobic respiration?"};
 var TAGS={svg:1,g:1,rect:1,circle:1,ellipse:1,line:1,polyline:1,polygon:1,path:1,text:1,tspan:1,defs:1,lineargradient:1,stop:1};
 var ATTRS=" viewbox x y x1 y1 x2 y2 cx cy r rx ry width height d points fill stroke stroke-width stroke-dasharray stroke-linecap stroke-linejoin opacity fill-opacity stroke-opacity transform font-size font-family font-weight text-anchor dominant-baseline id offset stop-color gradientunits ";
 function el(i){return document.getElementById(i);}
@@ -174,9 +174,25 @@ function ask(text,shown){
     send.disabled=false;
   });
 }
+function langReq(t){
+  var x=t.trim();
+  if(x.split(/\s+/).length>8){return "";}
+  if(/hinglish/i.test(x)){return "hinglish";}
+  if(/hindi|\u0939\u093f\u0902\u0926\u0940|\u0939\u093f\u0928\u094d\u0926\u0940/i.test(x)){return "hi";}
+  if(/english|\u0905\u0902\u0917\u094d\u0930\u0947\u091c/i.test(x)){return "en";}
+  return "";
+}
+var LI={hi:"Hindi (Devanagari)",en:"English",hinglish:"Hinglish (Hindi in Roman script mixed with English)"};
 el("send").onclick=function(){
   var t=el("q").value.trim();
   if(!t){el("q").focus();return;}
+  var lr=langReq(t);
+  if(lr){
+    el("q").value="";
+    if(!last){showMsg(lr==="hi"?"पहले अपना प्रश्न लिखें।":"Please type your question first.");return;}
+    ask("Previous question: "+last+"\nNow answer this same question fully in "+LI[lr]+".");
+    return;
+  }
   last=t;
   ask(t,t);
   el("q").value="";
@@ -190,6 +206,6 @@ el("nx").onclick=function(){
   if(!last){return;}
   ask(FU[LANG].nx.replace("{Q}",last));
 };
-el("qs").textContent="Ye ek sample hai. Neeche apna doubt likhkar Send dabayein.";
+el("qs").textContent="This is a sample. Type your doubt below and press Send.";
 render(SAMPLE);
 </script></body></html>
